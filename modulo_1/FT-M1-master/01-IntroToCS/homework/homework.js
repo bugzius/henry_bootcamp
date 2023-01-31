@@ -19,7 +19,6 @@ function BinarioADecimal(num) {
 
 function DecimalABinario(num) {
    let numberFinal = '';
-   
    for(let i = num; i > 0; i = ( ( i - ( i % 2 ) ) / 2 ) ){
       numberFinal += `${ i % 2 }`
    };
