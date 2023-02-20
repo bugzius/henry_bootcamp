@@ -7,7 +7,8 @@
     "grade": "jest --useStderr --json --outputFile=./tests/result.json"
   },
   "devDependencies": {
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.20"
   },
   "author": "",
   "license": "ISC"
