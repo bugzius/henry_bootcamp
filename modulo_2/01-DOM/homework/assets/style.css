@@ -1,0 +1,153 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Cascadia Code",sans-serif;
+}
+body {
+  background-color: rgb(232, 246, 255);
+}
+.shadowbox{
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+#header {
+  background: #428fbb;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#header span {
+  font-size: 24px;
+  color: white;
+  padding-right: 15px;
+}
+
+#header a {
+  padding-left: 15px;
+}
+#header a img{
+  image-rendering: optimizeQuality;
+  filter: drop-shadow(0 1px 1px black);
+  box-shadow: 5px 5px 5px inset rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+body .items-title{
+  text-align: center;
+  padding: 10px 0;
+}
+body .items-title{
+  position: relative;
+}
+
+#container {
+  background-color: hsla(202, 97%, 37%, 0.5);
+  max-width: 700px;
+  width: 100%;
+  margin-top: 5px;
+  margin: 0 auto;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+#container div input{
+  width: 100%;
+}
+
+#inputContainer {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#toDoInput {
+  width: 100%;
+  padding: 5px;
+  border-radius: 2px;
+  outline: none;
+  border: none;
+  font-size: 1.1rem;
+  padding-left: 10px;
+}
+
+#toDoInput::placeholder{
+  color: #d3d3d3;
+
+}
+
+#addButton {
+  padding: 10px;
+  background: red;
+  color: white;
+  font-weight: 600;
+  text-transform: capitalize;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all .3s ease;
+}
+
+#addButton:hover{
+  border-radius: 20px; 
+  box-shadow: 0px 2px 10px rgba(255, 0, 0, 0.5);
+  transform: scale(1.05);
+}
+
+#toDoContainer {
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.toDoShell {
+  padding: 10px;
+  background: white;
+  border-radius: 10px;
+  width: 100%;
+  
+  display: grid;
+  grid-template-columns: .3fr .7fr;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.toDoShell span {
+  display: block;
+  position: relative;
+}
+.toDoShell:hover > span.completeText::before{
+  transform: scale(1.1);
+}
+.completeText {
+  color: lightgrey;
+  text-decoration: line-through;
+}
+
+.completeCheckbox {
+  overflow: hidden;
+  height: 1.5rem;
+}
+.completeCheckbox:checked ~ span.completeText::before{
+  display: block;
+  position: absolute;
+  content: "Completada";
+  background: rgb(0, 214, 54);
+  top: 0;
+  left: 75%;
+  transform: rotate(-18deg);
+  padding: 2px;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px black;
+  text-shadow: 0 1px 1px black;
+  transition: transform .4s ease;
+}
+.toDoShell:hover > .completeCheckbox:checked ~ span.completeText::before{
+  transform: rotate(-16deg) scale(1.2);
+}
