@@ -1,0 +1,12 @@
+{
+  "name": "03-es6",
+  "version": "1.0.0",
+  "description": "![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)",
+  "main": "ejemplos.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
