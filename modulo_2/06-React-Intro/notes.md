@@ -114,3 +114,72 @@ ReactDOM.render(
 //49:28
 
 
+## Encapsular Información en un Solo elemento
+En React solo puedes retornar el renderizado de un Objeto, no puedes tomar muchos y retornarlos en lista, si no que debes de Tenerlos encapsulados y/o agrupados en un solo Componente para realizar el return.
+
+Entonces React nos provee de un Componente que nos permite hacer esto; encapsular varios componentes es uno solo.
+
+De manera recursiva (de Ingenioso) se puede encapsular dentro de una etiqueta _<div>...</div>_ y todo va a funcionar correcto, pero no es del todo óptimo porque luego vamos a tener un elemento _<div>...</div>_ de más.
+
+```JSX
+function Persona({name,age}){
+    return (
+        <p>{name} tiene {age} años de Edad</p>
+    )
+};
+
+function Jefe({name, auxs}){
+    return (
+        <React.Fragment>
+            <p>{props.name}</p>
+            {
+                auxs.map(({name, id, age}) => <Persona name={name} age={age} key={id}/>)
+            }
+        </React.Fragment>
+    )
+}
+```
+- Tipos de Encapsuladores (Fragments)
+    1. <React.Fragment></React.Fragment>
+    2. <></>: Sintaxis corta de La llamada explicita de un Fragment.
+    3. <dl></dl>: Para cuando retornamos lista de Fragmentos.
+- Definición de Asignar valores props en la Invocación del Componente: Definimos los valores como propiedad de un Componente y allí asignamos el valor.
+
+## Key
+Para el renderizado de los componentes, React nos establece que le proporcionemos un valor en propiedad _key_, Esto lo solicita para lograr identificar el elemento en sí y poder optimizar y ser más preciso al momento de rerenderizar dicho componente. Sin embargo **React** no nos Obliga a proporcionarle un key. Ya que react al menos en la Iteración que retorna componentes toma como key el índice según el orden, siendo _React_ consciente de que no es buena práctica y de que muy posiblemente traerá problemas más adelante pero debe de tomar un key para Optimizar el proceso y para al menos fallar en un proceso pero hacer algo. Por el contrario no hará ninguna de las dos funciones.
+
+```JSX
+<Component key={data.id}/> // De esta manera se asigna la propiedad key.
+```
+
+Esta propiedad desde el elemento no será accesible por nosotros. Unicamente _React_ podrá hacer uso de esta.
+
+Una buena práctica es saber qué Componentes realmente requieren de un _key_, los elementos que son muy variables como el renderizado de una lista de elementos los cuales no van a modificar su valor pues no será necesario.
+
+## Componentes con Class
+
+Los Class Components, son componentes creados con una estructura inicial de Clase (_Class_). Este era sintaxis anterior de creación de Componentes la cual es válida aún claramente, ya que también se añadió el _Function Component_ el cual provee una sintaxis un poco más Implicita pero sencilla de ver.
+
+A tener en cuenta para la creación de esta forma de Componentes, saber que debemos de Heredar los propiedades y métodos de Funcionamiento del módulo _React.Component_.
+
+Vamos a reasignar el método _render_ en la creación del componente para especificar qué queremos renderizar.
+
+Las props son un Objeto que el componente toma en donde va a almacenar los valores asignados en su Invocación. Se accede por medio de _this_ a el Objeto props,
+
+```JSX
+class Persona extends React.component{
+    render(){
+        const {name, lastName} = this.props;
+        return (
+            //Ejemplo de Fragment
+            //<div></div>
+            <>
+                <h1>{name}</h1>
+                <p>{lastName}</p>
+            </>
+        )
+    }
+}
+```
+
+//1:10:20
