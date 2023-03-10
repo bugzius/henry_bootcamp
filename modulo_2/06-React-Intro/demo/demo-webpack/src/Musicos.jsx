@@ -6,7 +6,7 @@ export default function Musicos({ musicos }) {
       <div>
         {
           musicos.map(musico => (
-            <Musico name={musico.name} lastname={musico.lastname} band={musico.band} />
+            <Musico id={musico.name.charCodeAt()} name={musico.name} lastname={musico.lastname} band={musico.band} />
           ))
         }
       </div>

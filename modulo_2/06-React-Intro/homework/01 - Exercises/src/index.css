@@ -1,8 +1,15 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -10,4 +17,66 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+body{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0e0e0;
+}
+.ctn-window{
+  max-width: 1000px;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.3);
+  background: linear-gradient( 0.15turn,rgba(0, 0, 0, 0.2) 10%, rgba(0, 0, 255,0.3) 100%);
+}
+
+.ctn-window .main-title{
+  padding: 20px;
+  text-align: center;
+  background: rgb(187, 187, 187);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+.ctn-window .title-student{
+  font-size: 2rem;
+  padding: 10px;
+  text-transform: uppercase;
+  border-bottom: 2px solid black;
+  width: fit-content;
+}
+.ctn-window .list-items{
+  text-align: center;
+}
+.ctn-window .list-items .item-list{
+  list-style: none;
+  margin-bottom: 3px;
+  padding: 5px 0;
+  font-size: 1.1rem;
+}
+.ctn-window .ctn-buttons-window{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.ctn-window .ctn-buttons-window .button-window{
+  border: 0;
+  padding: 5px 12px;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+}
+.ctn-window .ctn-buttons-window .button-window.m1{
+  background: rgb(0, 157, 255);
+}
+.ctn-window .ctn-buttons-window .button-window.m2{
+  background: rgb(161, 131, 8) ;
 }

@@ -1,11 +1,18 @@
 export default function Card(props) {
+   const {
+      name,
+      species,
+      gender,
+      image,
+      onClose
+   } = props;
    return (
       <div>
-         {/* <button onClick={}>X</button>
-         <h2></h2>
-         <h2></h2>
-         <h2></h2>
-         <img  src={} alt="" /> */}
+         <h1>{name}</h1>
+         <p>{species}</p>
+         <p>{gender}</p>
+         <img src={image} alt={`Image ${name}`}/>
+         <button onClick={onClose} className="btn-card">X</button>
       </div>
    );
 }
