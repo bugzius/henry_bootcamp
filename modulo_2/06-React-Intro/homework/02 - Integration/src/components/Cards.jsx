@@ -1,15 +1,20 @@
+import './Cards.css';
 import Card from './Card';
 
 export default function Cards(props) {
    const { characters } = props;
    return (
-      characters.map( ({name,species,gender,image, onClose}) => {
-         const key = Math.floor(Math.random() * Date.now());
-         const obj = {
-            name,species,gender,
-            image,onClose, key
+      <div className='list-characters'>
+         {
+            characters.map( ({name,species,gender,image, onClose}) => {
+               const key = Math.floor(Math.random() * Date.now());
+               const options = {
+                  name,species,gender,
+                  image,onClose, key
+               }
+               return <Card {...options}/>
+            })
          }
-         return <Card {...obj}/>
-      })
+      </div>
    );
 }

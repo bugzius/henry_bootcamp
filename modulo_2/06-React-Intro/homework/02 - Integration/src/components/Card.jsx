@@ -1,3 +1,5 @@
+import './Card.css';
+
 export default function Card(props) {
    const {
       name,
@@ -7,12 +9,16 @@ export default function Card(props) {
       onClose
    } = props;
    return (
-      <div>
-         <h1>{name}</h1>
-         <p>{species}</p>
-         <p>{gender}</p>
-         <img src={image} alt={`Image ${name}`}/>
-         <button onClick={onClose} className="btn-card">X</button>
+      <div className='box-card-item'>
+         <h1 className='title-name-card'>{name}</h1>
+         <img className='img-card-character' src={image} alt={`Image ${name}`}/>
+         <div className='over-card'>
+            <div className='info-over-card'>
+               <p>{species}</p>
+               <p>{gender}</p>
+            </div>
+            <button onClick={onClose} className="btn-card">close</button>
+         </div>
       </div>
    );
 }
