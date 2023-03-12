@@ -1,19 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+*{
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 .divBienvenido {
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  background-color: #c5c5c5a2;
+  align-items: center;
 }
 
 .title {
+  text-transform: uppercase;
   font-size: 3em;
   text-align: center;
   margin-top: 1em;
   margin-bottom: 1em;
-  color: rgb(26, 26, 130)
+  color: rgb(32, 63, 165);
+  text-shadow: 1px 1px 0 rgb(32, 63, 165);
 }
 
 .subtitle {
@@ -24,33 +32,39 @@
 }
 
 .unorderedList {
+  width: 100%;
+  max-width: 1000px;
+  padding: 2%;
+  margin: 0 auto;
   list-style-type: none;
-  padding: 0;
-  margin-bottom: 3em;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
 }
 
 .listItem {
+  background-color: #262623c9;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all .3s ease;
+  color: white;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 15vw;
-  height: 15vh;
-  background-color: #fcff4f;
-  padding: 1em;
-  margin: 5px;
-  font-weight: 500;
-  border-radius: 5%;
+  padding: 10px;
+  gap: 10px;
 }
 .listItem:hover {
-  background-color: #262623c9;
+  background-color: #fcff4f;
   color: beige;
 }
 
 .listItem img {
   width: 50%;
   object-fit: cover;
-  margin: 15px;
+}
+
+.listItem p{
+  font-weight: bold;
+  font-size: 1.5rem;
 }
