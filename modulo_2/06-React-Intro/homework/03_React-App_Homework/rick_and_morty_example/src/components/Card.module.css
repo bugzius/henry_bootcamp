@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.boxCardItem{
+    background: #e9e9e9;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 0;
+    text-align: center;
+    position: relative;
+}
+.bannerCard{
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.titleNameCard{
+    background: rgb(36, 186, 255);
+    padding: 10px;
+}
+.overCard{
+    padding: 5px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.overCard p{
+    padding: 2px 7px;
+    background: rgba(255,255,255, 0.3);
+    border-radius: 5px;
+    margin: 2px 0;
+    font-size: 1.1rem;
+}
+.imgCardCharacter{
+    object-fit: cover;
+    width: 100%;
+    height: 400px;
+    filter: contrast(1.1) grayscale(.2) saturate(1.5);
+    image-rendering:optimizeSpeed;
+}
