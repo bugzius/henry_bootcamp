@@ -142,4 +142,34 @@ class Component extends React.Component{
     }
 }
 ```
-//47:30
+
+**Nota:** Nuestro componente se re-renderiza cuando se reciben nuevas `props` o cuando el `state` se actualiza por medio de `setState`.
+
+# Life Cycle
+
+El ciclo de vida de un componente se divide en 3 etapas del componente:
+
+- Creación del componente: En esta etapa `React` por debajo, ejecuta un ciclo de vida con el componente, en este caso la creación del componente, el cual se ejecuta en el siguiente orden:
+    
+    1. constructor; es Allí en donde definimos el estado de nuestra clase de componente.
+    2. Extrae las propiedades de la invocación del Componente.
+    3. Hace uso de su método `render` para actualizar el Virtual DOM y previo a ello evaluarlo.
+    4. Actualiza el DOM Real y las referencias.
+    5. componentDidMOunt; Es una función que se ejecuta al terminar todo este proceso, Nosotros podemos reescribir esta función para nuestro beneficio, es decir; para cuando el componente termine nosotros lograr ejecutar cierto código.
+
+- Actualización del Componente: Esta etapa del componente se ejecuta cuando nosotros realizamos cambios a las `props` que recibe el componente o cuando realizamos cambios de estado por medio del `setState`. Al ocurrir los casos anteriormente mencionados react empieza a realizar una serie de ejecuciones en el siguiente orden:
+    
+    1. Extrae las propiedades y del componente.
+    2. Realiza una comparación con el Virtual DOM para saber si debe o no re-renderizar el componente.
+    3. Si lo anterior se cumple, viene a ejecutarse el método `render` en donde allí se realizan las Actualizaciones al DOM Virtual.
+    4. ??
+    5. Realiza las actualizaciones en el DOM y sobre las referencias.
+    6. componentDidUpdate; esta será una función que se ejecutará al terminar todo el proceso de la actualización la cual podremos usar a nuestro beneficio.
+
+- Desmontar el componente: es cuando el componente a salido de nuestro DOM.
+    1. componentWillUnmount: Es un método que podemos usar a nuestro beneficio para ejecutar funcionalidades que queremos que sean ejecutadas cuando el componente haya salido del DOM.  
+    Al desmontar un componente, no quiere decir que este componente ha muerto y que ahora si queremos verlo ya tengamos que invocar un nuevo componente, si no que en vez de ello, el componente sigue existiendo y manteniendo esa información que contenía antes de ser desmontado para que si volvemos a montarlo se mantenga esa información.  
+    Una funcionalidad para este método es que lo podemos usar para borrar la información que el componente contiene.
+
+
+# One Way Data Flow
