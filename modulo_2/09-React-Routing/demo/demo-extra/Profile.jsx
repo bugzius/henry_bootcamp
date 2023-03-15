@@ -16,13 +16,13 @@ export default function Profile() {
 
   return (
     <form onSubmit={onProfileSubmit}>
-      {/* <Prompt message="Are you sure you want to leave?" /> */}
-      {/* <Prompt
+      <Prompt message="Are you sure you want to leave?" />
+      <Prompt
         when={isBlocked}
         message={location =>
           `Are you sure you want to go to ${location.pathname}`
         }
-      /> */}
+      />
       <Prompt
         message={location => 
           location.pathname.startsWith("/new")

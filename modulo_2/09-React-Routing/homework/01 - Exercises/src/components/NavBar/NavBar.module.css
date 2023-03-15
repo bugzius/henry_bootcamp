@@ -1,27 +1,35 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 .container {
   background: #454545;
-  width: 100vw;
-  height: 70px;
-  color: #f6f4e6;
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: .1fr .1fr 1fr;
+  padding: 10px;
+  align-items: center;
+}
+
+.container img{
+  width: 100%;
 }
 
 .menu {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  position: absolute;
-  width: 100vw;
-  height: 70px;
-  top: -2%;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
 }
+
 
 .menu li {
   text-decoration: none;
+  list-style: none;
   font-weight: 500;
-  display: inline-block;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .menu li:hover {

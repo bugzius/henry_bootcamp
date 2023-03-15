@@ -6,23 +6,19 @@ import styleNav from "./NavBar.module.css";
 export default function NavBar() {
   return (
     <div className={styleNav.container}>
-      <ul className={styleNav.menu}>
-        <li>
-          <img src={logoHenry} alt="logo-henry" />
-          <img src={logo} alt="logo" />
-        </li>
-        <li>
-          <h1>Central de Cruceros</h1>
-        </li>
-        <div className={styleNav.options}>
+      <img src={logoHenry} alt="logo-henry" />
+      <img src={logo} alt="logo" />
+      <nav className={styleNav.menu}>
+        <h1>Central de Cruceros</h1>
+        <ul className={styleNav.options}>
           <li>
-            <span>Navieras</span>
+            <p>Promotions</p>
           </li>
           <li>
-            <span>Promociones</span>
+            <p>Shipping</p>
           </li>
-        </div>
-      </ul>
+        </ul>
+      </nav>
     </div>
   );
 }
