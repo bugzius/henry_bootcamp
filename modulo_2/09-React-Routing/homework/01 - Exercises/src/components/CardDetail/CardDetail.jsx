@@ -1,8 +1,13 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./CardDetail.module.css";
 
-export default function CardDetail() {
+export default function CardDetail(props) {
   const [cruiseDetail, setCruiseDetail] = React.useState({});
+  
+  const {id} = useParams();
+  const navigate = useNavigate();
+
   React.useEffect(() => {
     //eslint-disable-next-line
     fetch(`http://localhost:3001/cruises/${id}`)
@@ -15,15 +20,17 @@ export default function CardDetail() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const backToHome = () => navigate('/');
+
   return (
     <div className={styles.container}>
-      <button className={styles.buttonBack}>
+      <button className={styles.buttonBack} onClick={backToHome}>
         Volver
       </button>
 
       <div>
         <div>
-          <h1>{cruiseDetail.name}</h1>
+          <h1 className={styles.name}>{cruiseDetail.name}</h1>
           <img
             className={styles.image}
             src={cruiseDetail.image}

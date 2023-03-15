@@ -17,7 +17,7 @@ export default function Promotions() {
       />
       <img
         style={{ width: "50vw", paddingTop: "2em" }}
-        src="https://www.tarjetadeoferta.com/uploads/contest_det/avatar_dets/000/000/002/original/Banner.jpg"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKv2jSK990XUhFBFbKq03_jVP2h7pvK2E4CaA3vSnvKkbgfwaw1SNooMTMBuUOOsgmvUs&usqp=CAU"
         alt="prom2"
       />
       <img

@@ -5,20 +5,18 @@ a:active {
 }
 
 .container {
-  display: flex;
-  margin: 2em;
   border: #454545 solid;
   border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
   box-shadow: 10px 10px rgba(0, 0, 0, 0.15);
   color: #f6f4e6;
   background-color: #454545;
-  width: 30vw;
-  height: 40vh;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
   transition: all 0.4s ease;
   text-decoration: none;
+
+  margin: 10px 0;
+  padding: 10px;
+  max-width: 400px;
+  text-align: center;
 }
 
 .container:hover {
@@ -26,12 +24,11 @@ a:active {
   box-shadow: 5px 5px rgba(0, 0, 0, 0.25);
 }
 .container img {
-  width: 30vw;
-  height: 30vh;
+  width: 100%;
   object-fit: cover;
 }
 
-.container img:hover {
+.container:hover img {
   border-radius: 0% 0% 50% 50% / 0% 0% 5% 5%;
 }
 
