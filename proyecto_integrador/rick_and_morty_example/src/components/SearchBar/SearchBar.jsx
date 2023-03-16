@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FormStyled = styled.form`
+   max-width: 1200px;
    background: #f0f0f0;
    border-radius: 15px;
    padding: 10px;
@@ -11,6 +12,8 @@ const FormStyled = styled.form`
    flex-direction: column;
    align-items: center;
    gap: 5px;
+   margin: 10px auto;
+   
    & input[name="name-character"]{
       border: none;
       outline: none;
@@ -51,4 +54,6 @@ class SearchBar extends React.Component{
    }
 }
 
-export default SearchBar;
+export {
+   SearchBar
+};

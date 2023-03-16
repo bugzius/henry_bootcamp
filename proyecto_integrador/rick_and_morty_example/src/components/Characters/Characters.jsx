@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Cards} from '../Cards/Cards.jsx';
 
 import { PaginatorCards } from '../Paginator/Paginator.jsx';

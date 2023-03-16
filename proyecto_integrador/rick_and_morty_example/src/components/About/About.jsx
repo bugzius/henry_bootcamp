@@ -18,6 +18,7 @@ const ContainerCardAbout = styled.div`
         --m-top-size: 25px;
         --text-h2-size: .8rem;
     }
+    
     background: #f1f1f1;
     border-radius: 20px;
     overflow: hidden;
@@ -51,6 +52,7 @@ const ContainerCardAbout = styled.div`
 const ContainerAboutStyled = styled.div`
     padding: 10px;
     text-align: center;
+    margin-bottom: 100px;
     & .titleAbout{
         padding: 10px;
         border-bottom: 2px solid gray;
