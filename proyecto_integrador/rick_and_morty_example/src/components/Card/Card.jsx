@@ -22,7 +22,7 @@ const Button = styled.button`
    }
 `;
 
-export default function Card({name,species,gender,image,onClose,variant}) {
+export default function Card({name,species,gender,image,variant}) {
    return (
       <div className={`${styles.boxCardItem} ${variant === "banner"? styles.bannerCard : null}`}>
          <h1 className={styles.titleNameCard}>{name}</h1>
@@ -32,7 +32,7 @@ export default function Card({name,species,gender,image,onClose,variant}) {
                <p>{species}</p>
                <p>{gender}</p>
             </div>
-            <Button onClick={onClose}>close</Button>
+            <Button>Abrir</Button>
          </div>
       </div>
    );

@@ -1,10 +1,10 @@
-import styles from './App.module.css'
-import Card from './components/Card.jsx';
-import Cards from './components/Cards.jsx';
-import SearchBar from './components/SearchBar.jsx'
-import characters, { Rick } from './data.js'
+import styles from './Home.module.css'
+import Card from '../Card/Card.jsx';
+import Cards from '../Cards/Cards.jsx';
+import SearchBar from '../SearchBar/SearchBar.jsx';
+import characters, { Rick } from '../../data.js';
 
-function App () {
+function Home () {
   return (
     <div className={styles.App} style={{ padding: '25px' }}>
       <div>
@@ -42,9 +42,8 @@ function App () {
           variant="banner"
         />
       </div>
-      <Cards characters={characters}/>
     </div>
   )
 }
 
-export default App
+export default Home
