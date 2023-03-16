@@ -1,10 +1,47 @@
 .warning {
-  border: solid red 1px;
+  border: 3px solid red;
+  outline: none;
   border-radius: 0.2em;
 }
-
 .danger {
   font-size: 10px;
   color: red;
   margin-left: 10em;
+}
+.content-form{
+  padding: 10px;
+}
+.form-all{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  max-width: 700px;
+  padding: 20px;
+  width: 100%;
+  margin: 0 auto;
+}
+.item-form-input{
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 1rem;
+  box-shadow: 0 1px 5px #a6a6a6;
+  outline: none;
+}
+.button-submit{
+  border: none;
+  text-align: center;
+  background: red;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: white;
+  font-weight: 700;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px #ff6f6f;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+.button-submit:hover{
+  box-shadow: 0 1px 10px #ff6f6f;
 }
