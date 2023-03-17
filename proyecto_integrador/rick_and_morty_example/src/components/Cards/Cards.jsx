@@ -1,11 +1,13 @@
+import { useEffect, useState } from 'react';
+
 import styles from'./Cards.module.css';
 import Card from '../Card/Card.jsx';
 import { SearchBar } from '../SearchBar/SearchBar.jsx';
 
-import { useEffect, useState } from 'react';
+import { BaseURLApi } from '../../VariablesENV.js';
 
 export function Cards({ fetchPageNumber }) {
-   const URLApi = 'https://rickandmortyapi.com/api/character';
+   const URLApi = BaseURLApi;
 
    const [characters, setCharacters] = useState([]);
    const [tempChars, setTempChars] = useState(characters);
@@ -51,11 +53,11 @@ export function Cards({ fetchPageNumber }) {
          <div className={styles.listCharacters}>
             {
                tempChars ?
-               tempChars.map( ({name,species,gender,image}) => {
+               tempChars.map( ({id,name,species,gender,image}) => {
                   const key = Math.floor(Math.random() * Date.now());
                   const options = {
                      name,species,gender,
-                     image, key
+                     image, key, id
                   }
                   return <Card {...options}/>
                }) : null

@@ -1,10 +1,16 @@
+import {Navigate} from 'react-router-dom';
+
+import { Rick } from '../../data.js';
 import styles from './Home.module.css'
 import Card from '../Card/Card.jsx';
-import { Rick } from '../../data.js';
 
-function Home () {
+function Home (props) {
   return (
-    <div className={styles.App} style={{ padding: '25px' }}>
+    <div className={styles.Home} style={{ padding: '25px' }}>
+      {
+        !props.session && <Navigate replace to='/login' />
+      }
+      
       <div>
         <Card
           name={Rick.name}
@@ -13,6 +19,7 @@ function Home () {
           image={Rick.image}
           onClose={() => window.alert('Emulamos que se cierra la card')}
           variant="banner"
+          id={Rick.id}
         />
       </div>
     </div>

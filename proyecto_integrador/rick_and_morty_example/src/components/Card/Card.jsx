@@ -1,6 +1,8 @@
 import styles from './Card.module.css';
 import styled from 'styled-components';
 
+import { NavLink } from 'react-router-dom';
+
 const Button = styled.button`
    border: none;
    outline: none;
@@ -22,9 +24,9 @@ const Button = styled.button`
    }
 `;
 
-export default function Card({name,species,gender,image,variant}) {
+export default function Card({id,name,species,gender,image,variant}) {
    return (
-      <div className={`${styles.boxCardItem} ${variant === "banner"? styles.bannerCard : null}`}>
+      <NavLink to={`/characters/${id}`} className={`${styles.boxCardItem} ${variant === "banner"? styles.bannerCard : null}`}>
          <h1 className={styles.titleNameCard}>{name}</h1>
          <img className={styles.imgCardCharacter} src={image} alt={`Image ${name}`}/>
          <div className={styles.overCard}>
@@ -34,6 +36,6 @@ export default function Card({name,species,gender,image,variant}) {
             </div>
             <Button>Abrir</Button>
          </div>
-      </div>
+      </NavLink>
    );
 }

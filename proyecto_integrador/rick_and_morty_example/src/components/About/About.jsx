@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import { useNavigate } from "react-router-dom";
-import { colorGreenBase } from "../../VariablesENV";
+import { Navigate, useNavigate } from 'react-router-dom';
+import { ButtonNavigate } from "../ButtonNavigate/ButtonNavigate.jsx";
 
 import AboutImage from '../../resources/AboutImage.jpg';
 
@@ -59,28 +59,15 @@ const ContainerAboutStyled = styled.div`
     }
 `;
 
-const ButtonStyled = styled.button`
-    display: block;
-    background: ${colorGreenBase};
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    border: none;
-    box-shadow: 0 2px 0 grey;
-    transition: all .3s ease-in-out;
-    cursor: pointer;
-    &:hover{
-        box-shadow: 0 -2px 0 grey;
-        transform: scale(1.03);
-    }
-`;
-
-export function About(){
+export function About(props){
     const navigate = useNavigate();
 
     return (
         <ContainerAboutStyled>
-            <ButtonStyled onClick={() => navigate(-1)}>Regresar</ButtonStyled>
+            {
+                !props.session && <Navigate replace to='/login' />
+            }
+            <ButtonNavigate func={navigate} valFunc={-1} text={"Regresar"} />
             <h1 className="titleAbout">Conoce Nuestro Proyecto</h1>
             <ContainerCardAbout>
                 <img className="imageAbout" src={AboutImage} alt="Image About" />
