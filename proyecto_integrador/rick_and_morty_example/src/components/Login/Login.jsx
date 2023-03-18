@@ -81,38 +81,30 @@ const ContentLoginStyled = styled.div`
         }
     }
 `;
-export function Login(props){
+export function Login(){
+    const session = sessionStorage.getItem(hashSession) ?? null;
     const objCrendentials = {username:"", password:""};
+
     const [credentials, setCredentials] = useState(objCrendentials);
     const [errors, setErrors] = useState(objCrendentials);
 
     const navigate = useNavigate();
-    
-    const objRegex = {username: /^([a-zA-Z0-9]{6,18})+$/,password:/^(?=.*[A-Za-z])[A-Za-z\d]{8,}$/}
+
+    const objValidation = {username, password}
 
     const validateInputs = inputs => {
         const errors = {};
 
         Object.entries(inputs).forEach(([tagName, val]) => {
-            const validate = objRegex[tagName].test(val);
-            if(!validate){
-                errors[tagName] = !validate;
+            const validate = objValidation[tagName] !== val;
+            if(validate){
+                errors[tagName] = validate
             }
         });
-
         return errors;
     };
 
     const handleChangeInput = e => {
-        setErrors(
-            validateInputs(
-                {
-                    ...credentials,
-                    [e.target.name]:e.target.value.slice(0,18)
-                }
-            )
-        );
-
         setCredentials(
             {
                 ...credentials,
@@ -123,14 +115,28 @@ export function Login(props){
 
     const handleSubmit = e => {
         e.preventDefault();
-        sessionStorage.setItem(hashSession,username ===  credentials.username && password === credentials);
-        navigate('/');
+
+        setErrors(
+            validateInputs(
+                {
+                    ...credentials,
+                }
+            )
+        );
+            
+        //Set in session storage the key to validate session
+        const validateSessionCredentials = username ===  credentials.username && password === credentials.password;
+        if(validateSessionCredentials){
+            console.log(validateSessionCredentials);
+            sessionStorage.setItem(hashSession,validateSessionCredentials);
+            navigate('/');
+        }
     }
 
     return (
         <div>
             {
-                props.session && <Navigate replace to='/' />
+                session && <Navigate replace to='/' />
             }
             <ContentLoginStyled>
                 <h1>Iniciar Sesion</h1>
@@ -152,7 +158,7 @@ export function Login(props){
                             placeholder="Contraseña"
                             className={errors.password && 'not-validate'}
                         />
-                        <input disabled={ Object.values(errors).length > 0  || errors.username || errors.password} type="submit" value="Enviar" />
+                        <input type="submit" value="Enviar" />
                     </form>
                 </div>
             </ContentLoginStyled>

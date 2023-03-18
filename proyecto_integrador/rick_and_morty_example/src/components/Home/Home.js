@@ -4,11 +4,14 @@ import { Rick } from '../../data.js';
 import styles from './Home.module.css'
 import Card from '../Card/Card.jsx';
 
-function Home (props) {
+import { hashSession } from '../../VariablesENV.js';
+
+function Home () {
+  const session = sessionStorage.getItem(hashSession) ?? null
   return (
     <div className={styles.Home} style={{ padding: '25px' }}>
       {
-        !props.session && <Navigate replace to='/login' />
+        !session && <Navigate replace to='/login' />
       }
       
       <div>

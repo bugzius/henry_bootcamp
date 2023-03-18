@@ -6,13 +6,15 @@ import { ButtonNavigate } from '../ButtonNavigate/ButtonNavigate.jsx';
 import { CardDetail } from './CardDetail/CardDetail.jsx';
 import { NotFound } from '../NotFound/NotFound.jsx';
 
-import { BaseURLApi } from '../../VariablesENV.js';
+import { BaseURLApi, hashSession } from '../../VariablesENV.js';
 
 const ContainerCardDetails = styled.div`
     padding: 10px;
 `;
 
 export function CardDetails(props){
+    const session = sessionStorage.getItem(hashSession) ?? null
+
     const navigate = useNavigate();
     const {id} = useParams();
     
@@ -31,7 +33,7 @@ export function CardDetails(props){
     return (
         <ContainerCardDetails>
             {
-                !props.session && <Navigate replace to='/login' />
+                !session && <Navigate replace to='/login' />
             }
             <ButtonNavigate func={navigate} valFunc={-1} text={"Regresar"} />
                 {

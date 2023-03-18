@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { Navigate, useNavigate } from 'react-router-dom';
 import { ButtonNavigate } from "../ButtonNavigate/ButtonNavigate.jsx";
+import { hashSession } from "../../VariablesENV.js";
 
 import AboutImage from '../../resources/AboutImage.jpg';
 
@@ -59,13 +60,14 @@ const ContainerAboutStyled = styled.div`
     }
 `;
 
-export function About(props){
+export function About(){
     const navigate = useNavigate();
+    const session = sessionStorage.getItem(hashSession) ?? null
 
     return (
         <ContainerAboutStyled>
             {
-                !props.session && <Navigate replace to='/login' />
+                !session && <Navigate replace to='/login' />
             }
             <ButtonNavigate func={navigate} valFunc={-1} text={"Regresar"} />
             <h1 className="titleAbout">Conoce Nuestro Proyecto</h1>
