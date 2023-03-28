@@ -22,6 +22,7 @@ const CardStyled =  styled.div`
             object-fit: cover;
             height: 300px;
             margin: 0 auto;
+            image-rendering:optimizeSpeed;
             filter: drop-shadow(0 1px 5px #a2a2a2) contrast(1.2) saturate(1.6);
         }
 

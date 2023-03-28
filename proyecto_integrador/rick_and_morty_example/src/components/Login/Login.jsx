@@ -127,7 +127,6 @@ export function Login(){
         //Set in session storage the key to validate session
         const validateSessionCredentials = username ===  credentials.username && password === credentials.password;
         if(validateSessionCredentials){
-            console.log(validateSessionCredentials);
             sessionStorage.setItem(hashSession,validateSessionCredentials);
             navigate('/');
         }

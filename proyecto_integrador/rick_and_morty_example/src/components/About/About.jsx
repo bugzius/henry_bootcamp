@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { ButtonNavigate } from "../ButtonNavigate/ButtonNavigate.jsx";
 import { hashSession } from "../../VariablesENV.js";
 
-import AboutImage from '../../resources/AboutImage.jpg';
+import AboutImage from '../../resources/AboutImage.webp';
 
 const ContainerCardAbout = styled.div`
     --p-size: 20px;

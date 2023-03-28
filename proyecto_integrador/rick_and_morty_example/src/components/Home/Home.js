@@ -2,19 +2,22 @@ import {Navigate} from 'react-router-dom';
 
 import { Rick } from '../../data.js';
 import styles from './Home.module.css'
+
 import Card from '../Card/Card.jsx';
+import Banner from '../Banner/Banner.jsx';
 
 import { hashSession } from '../../VariablesENV.js';
 
-function Home () {
+function Home (){
   const session = sessionStorage.getItem(hashSession) ?? null
   return (
-    <div className={styles.Home} style={{ padding: '25px' }}>
+    <div >
       {
         !session && <Navigate replace to='/login' />
       }
       
-      <div>
+      <Banner idHref="initial_page"/>
+      <div id='initial_page' className={styles.Home} style={{padding:"10px"}}>
         <Card
           name={Rick.name}
           species={Rick.species}

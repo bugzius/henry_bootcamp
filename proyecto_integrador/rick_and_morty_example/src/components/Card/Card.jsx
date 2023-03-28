@@ -2,6 +2,8 @@ import styles from './Card.module.css';
 import styled from 'styled-components';
 
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Button = styled.button`
    border: none;
@@ -25,10 +27,20 @@ const Button = styled.button`
 `;
 
 export default function Card({id,name,species,gender,image,variant}) {
+   
+   const [imageResource, setImageResource] = useState();
+   
+   /* Fetch to URL image in the setState */
+   useEffect(() => {
+      fetch(image)
+         .then(res => res.blob())
+         .then(imageBlob => setImageResource(URL.createObjectURL(imageBlob)));
+   },[image]);
+
    return (
       <NavLink to={`/characters/${id}`} className={`${styles.boxCardItem} ${variant === "banner"? styles.bannerCard : null}`}>
          <h1 className={styles.titleNameCard}>{name}</h1>
-         <img className={styles.imgCardCharacter} src={image} alt={`Image ${name}`}/>
+         <img className={styles.imgCardCharacter} src={imageResource} alt={`Image ${name}`}/>
          <div className={styles.overCard}>
             <div>
                <p>{species}</p>

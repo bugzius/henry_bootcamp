@@ -49,10 +49,10 @@ export function Cards({ fetchPageNumber }) {
    return (
       <>
          <h1 className={styles.titleCards}>Personajes Encontrados</h1> 
-         <SearchBar onSearch={evt => handleSearch(evt,tempChars)}/>
+         <SearchBar onSearch={evt => handleSearch(evt,characters)}/>
          <div className={styles.listCharacters}>
             {
-               tempChars ?
+               tempChars &&
                tempChars.map( ({id,name,species,gender,image}) => {
                   const key = Math.floor(Math.random() * Date.now());
                   const options = {
@@ -60,7 +60,7 @@ export function Cards({ fetchPageNumber }) {
                      image, key, id
                   }
                   return <Card {...options}/>
-               }) : null
+               })
             }
          </div>
       </>
