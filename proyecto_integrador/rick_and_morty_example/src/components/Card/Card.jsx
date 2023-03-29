@@ -1,6 +1,8 @@
 import styles from './Card.module.css';
 import styled from 'styled-components';
 
+import imageLazyLoadingCard from '../../resources/lazy_loading_card.jpg';
+
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -28,7 +30,7 @@ const Button = styled.button`
 
 export default function Card({id,name,species,gender,image,variant}) {
    
-   const [imageResource, setImageResource] = useState();
+   const [imageResource, setImageResource] = useState(imageLazyLoadingCard);
    
    /* Fetch to URL image in the setState */
    useEffect(() => {
