@@ -6,6 +6,8 @@ import imageLazyLoadingCard from '../../resources/lazy_loading_card.jpg';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const Button = styled.button`
    border: none;
@@ -40,16 +42,21 @@ export default function Card({id,name,species,gender,image,variant}) {
    },[image]);
 
    return (
-      <NavLink to={`/characters/${id}`} className={`${styles.boxCardItem} ${variant === "banner"? styles.bannerCard : null}`}>
-         <h1 className={styles.titleNameCard}>{name}</h1>
-         <img className={styles.imgCardCharacter} src={imageResource} alt={`Image ${name}`}/>
-         <div className={styles.overCard}>
-            <div>
-               <p>{species}</p>
-               <p>{gender}</p>
+      <div className={`${styles.boxCardItem} ${variant === "banner"? styles.bannerCard : null}`}>
+         <NavLink className={styles.NavLinkStyles} to={`/characters/${id}`}>
+            <h1 className={styles.titleNameCard}>{name}</h1>
+            <img className={styles.imgCardCharacter} src={imageResource} alt={`Image ${name}`}/>
+            <div className={styles.overCard}>
+               <div>
+                  <p>{species}</p>
+                  <p>{gender}</p>
+               </div>
+               <Button>Abrir</Button>
             </div>
-            <Button>Abrir</Button>
+         </NavLink>
+         <div className={`${styles.iconFavoriteToggle} ${styles.active}`}>
+            <FontAwesomeIcon icon={faHeart} />
          </div>
-      </NavLink>
+      </div>
    );
 }
