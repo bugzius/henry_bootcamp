@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import Counter from './components/Counter';
@@ -16,9 +16,11 @@ const store = createStore(counter);
 // que vienen del paquete react-redux.
 // Esto es necesario porque el store necesita saber hacia dónde está pasando su estado. 
 // El componente Provider es donde "vive" el store.
-ReactDOM.render(
+
+const root = createRoot(document.getElementById('root'));
+
+root.render(
   <Provider store={store}>
     <Counter />
-  </Provider>,
-  document.getElementById('root')
+  </Provider>
 );
