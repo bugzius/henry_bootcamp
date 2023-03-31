@@ -3,8 +3,6 @@ import store from '../store.js';
 import * as actionsCreators from '../actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchPost } from '../actions/index.js';
-import axios from 'axios';
 
 
 const Counter = ({ counter, increment, decrement, reset, fetchPost}) => (
@@ -33,6 +31,9 @@ const mapStateToProps = (state) => ({
 });
 
 function mapDispatchToProps(dispatch) {
+  /* return Object.entries(actionsCreators).reduce( (init,[key, value]) => {
+    return {...init, [`${key}`]: (payload) => dispatch(value(payload))}
+  },{}); */
   return bindActionCreators(actionsCreators, dispatch);
 }
 
