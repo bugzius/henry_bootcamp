@@ -72,6 +72,7 @@
     transition: all .2s ease-out;
     cursor: pointer;
     color: white;
+    font-size: 25px;
     filter: drop-shadow(0 0px 0 black);
 }
 .iconFavoriteToggle svg:hover{
@@ -80,7 +81,7 @@
     color: rgb(255, 208, 208);
 }
 .iconFavoriteToggle.active svg{
-    animation:plotToggle 1s ease-in-out;
+    animation:plotToggle .3s ease-in-out;
     color: red;
 }
 
@@ -90,7 +91,7 @@
         color: white;
     }
     50%{
-        transform: scale(1.4);
+        transform: scale(1.6);
     }
     100%{
         transform: scale(1);

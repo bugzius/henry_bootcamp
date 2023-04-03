@@ -1,3 +1,8 @@
+//Redux
+import { connect } from 'react-redux';
+import { addCharacterFavorite, removeCharacterFavorite } from '../../redux/creatorTypeActions'
+
+//Component
 import styles from './Card.module.css';
 import styled from 'styled-components';
 
@@ -30,16 +35,25 @@ const Button = styled.button`
    }
 `;
 
-export default function Card({id,name,species,gender,image,variant}) {
-   
+function Card({ id,name,species,gender,image,variant, addCharacterFavorite, removeCharacterFavorite, favorite }) {
    const [imageResource, setImageResource] = useState(imageLazyLoadingCard);
-   
+   const [stateFavorite, setStateFavorite] = useState(favorite);
    /* Fetch to URL image in the setState */
    useEffect(() => {
       fetch(image)
          .then(res => res.blob())
          .then(imageBlob => setImageResource(URL.createObjectURL(imageBlob)));
    },[image]);
+
+   const handleClick = () => setStateFavorite(() => !stateFavorite);
+
+   useEffect(() => {
+      if(stateFavorite){
+         addCharacterFavorite(id)
+         return;
+      }
+      removeCharacterFavorite(id);
+   },[stateFavorite])
 
    return (
       <div className={`${styles.boxCardItem} ${variant === "banner"? styles.bannerCard : null}`}>
@@ -54,9 +68,26 @@ export default function Card({id,name,species,gender,image,variant}) {
                <Button>Abrir</Button>
             </div>
          </NavLink>
-         <div className={`${styles.iconFavoriteToggle} ${styles.active}`}>
-            <FontAwesomeIcon icon={faHeart} />
-         </div>
+         {
+            variant !== "banner"?
+               <div className={`${styles.iconFavoriteToggle} ${stateFavorite && styles.active}`}>
+                  <FontAwesomeIcon onClick={handleClick} icon={faHeart} />
+               </div> : null
+         }
       </div>
    );
 }
+
+//Redux
+const mapDispatchToProps = (dispatch) => {
+   return {
+      addCharacterFavorite: character => {
+         dispatch(addCharacterFavorite(character))
+      },
+      removeCharacterFavorite: id => {
+         dispatch(removeCharacterFavorite(id))
+      }
+   }
+}
+
+export default connect(null, mapDispatchToProps)(Card)

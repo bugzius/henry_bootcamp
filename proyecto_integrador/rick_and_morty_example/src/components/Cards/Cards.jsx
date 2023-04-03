@@ -1,17 +1,15 @@
+//Component
 import { useEffect, useState } from 'react';
 
 import styles from'./Cards.module.css';
 import Card from '../Card/Card.jsx';
 import { SearchBar } from '../SearchBar/SearchBar.jsx';
+import store from '../../redux/store';
 
-import { BaseURLApi } from '../../VariablesENV.js';
-
-export function Cards({ fetchPageNumber }) {
-   const URLApi = BaseURLApi;
-
-   const [characters, setCharacters] = useState([]);
+export default function Cards({ characters }) {
+   const {list_favorite} = store.getState();
    const [tempChars, setTempChars] = useState(characters);
-   
+
    const handleSearch = (event,persons) => {
       event.preventDefault();
       const textInput = event.target['name-character'];
@@ -36,15 +34,13 @@ export function Cards({ fetchPageNumber }) {
    };
 
    useEffect(() => {
-      fetch(`${URLApi}?page=${fetchPageNumber}`)
-         .then(res => res.json())
-         .then(({results}) => {
-            window.scroll({top:0});
-            
-            setCharacters(results);
-            setTempChars(results);
-         });
-   },[fetchPageNumber]);
+      setTempChars(characters.map( item => {
+         return {
+            ...item,
+            favorite: list_favorite.includes(item.id)
+         }
+      }));
+   },[characters])
 
    return (
       <>
@@ -53,11 +49,11 @@ export function Cards({ fetchPageNumber }) {
          <div className={styles.listCharacters}>
             {
                tempChars &&
-               tempChars.map( ({id,name,species,gender,image}) => {
+               tempChars.map( ({id,name,species,gender,image, favorite}) => {
                   const key = Math.floor(Math.random() * Date.now());
                   const options = {
                      name,species,gender,
-                     image, key, id
+                     image, key, id, favorite
                   }
                   return <Card {...options}/>
                })
