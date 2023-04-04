@@ -3,7 +3,20 @@ import { NavLink } from "react-router-dom";
 import styled from 'styled-components';
 
 import {colorBlueBase} from '../../VariablesENV.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
+const ContainerMenu = styled.header`
+    padding: 10px;
+    background: ${colorBlueBase} linear-gradient(.47turn, rgba(0,0,0,0) 50%, #0000ff9a);
+    color: white;
+
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    justify-items: flex-end;
+    align-items: center;
+`;
 
 const ImageNavLink = styled(NavLink)`
     --p-size: 10px;
@@ -32,17 +45,6 @@ const ImageNavLink = styled(NavLink)`
     }
 `;
 
-const ContainerMenu = styled.header`
-    padding: 10px;
-    background: ${colorBlueBase};
-    color: white;
-
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    justify-items: flex-end;
-    align-items: center;
-`;
 
 const ContainerListNav = styled.nav`
     --fontSize: 1.1rem;
@@ -71,6 +73,23 @@ const ContainerListNav = styled.nav`
             &:hover{
                 background: #ffff00a1;
             }
+            
+            //NavLink Favorite
+            &.favorite_link{
+                position: relative;
+                overflow: hidden;
+                transition: all .3s ease;
+            }
+            &.favorite_link:before{
+                content: 'Favoritos';
+                padding-right: 10px;
+                position: absolute;
+                left: 100%;
+            }
+            
+            &.favorite_link:hover:before{
+                position: static;
+            }
         }
     }
 `;
@@ -93,6 +112,11 @@ export function NavMenu(){
                     </NavLink>
                     <NavLink to='/characters' className={activeClassNavLink}>
                         Personajes
+                    </NavLink>
+                    <NavLink to='/favorites' className={(props) => (
+                        `favorite_link ${activeClassNavLink(props)}`
+                    )}>
+                        <FontAwesomeIcon icon={faHeart} />
                     </NavLink>
                     {/* <NavLink to="/addCharacters" className={activeClassNavLink} >
                         Agrega personajes

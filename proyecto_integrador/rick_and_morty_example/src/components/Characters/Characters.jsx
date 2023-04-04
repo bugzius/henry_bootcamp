@@ -27,7 +27,7 @@ export function Characters() {
             {
                 !session && <Navigate replace to='/login' />
             }
-            <Cards characters={characters} />
+            <Cards panel={true} characters={characters} />
             <PaginatorCards setNumberPage={setNumberPage} />
         </>
     )

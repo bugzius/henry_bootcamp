@@ -5,6 +5,7 @@ import Home from './components/Home/Home';
 import { Characters } from './components/Characters/Characters.jsx';
 import { CardDetails } from './components/CardDetails/CardDetails';
 import { Login } from './components/Login/Login.jsx';
+import { FavoriteCharacters } from './components/FavoriteCharacters/FavoriteCharacters';
 
 export function App(){
     return(
@@ -14,6 +15,7 @@ export function App(){
             <Route exact path='/characters/:id' element={<CardDetails />} />
             <Route path='/about' element={<About />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/favorites' element={<FavoriteCharacters />} />
         </Routes>
     )
 }

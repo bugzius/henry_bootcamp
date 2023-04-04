@@ -7,10 +7,35 @@
 }
 
 .Home {
+   display: grid;
+   grid-template-areas: "first first second"
+                        "third four four";
+
    text-align: center;
    max-width: 1150px;
    margin: 0 auto;
    margin-bottom: 80px;
    display: grid;
    gap: 20px;
+}
+@media (max-width:500px) {
+   .Home{
+      grid-template-areas: "first"
+                           "second"
+                           "third"
+                           "four";
+   }
+}
+
+.Home div:nth-child(1){
+   grid-area: first;
+}
+.Home div:nth-child(2){
+   grid-area: second;
+}
+.Home div:nth-child(3){
+   grid-area: third;
+}
+.Home div:nth-child(4){
+   grid-area: four;
 }

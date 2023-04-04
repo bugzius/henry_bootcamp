@@ -35,7 +35,9 @@ const Button = styled.button`
    }
 `;
 
-function Card({ id,name,species,gender,image,variant, addCharacterFavorite, removeCharacterFavorite, favorite }) {
+function Card(character) {
+   const { id,name,species,gender,image,variant, addCharacterFavorite, removeCharacterFavorite, favorite } = character;
+
    const [imageResource, setImageResource] = useState(imageLazyLoadingCard);
    const [stateFavorite, setStateFavorite] = useState(favorite);
    /* Fetch to URL image in the setState */
@@ -43,20 +45,22 @@ function Card({ id,name,species,gender,image,variant, addCharacterFavorite, remo
       fetch(image)
          .then(res => res.blob())
          .then(imageBlob => setImageResource(URL.createObjectURL(imageBlob)));
-   },[image]);
+   },[]);
 
-   const handleClick = () => setStateFavorite(() => !stateFavorite);
-
-   useEffect(() => {
-      if(stateFavorite){
-         addCharacterFavorite(id)
-         return;
-      }
-      removeCharacterFavorite(id);
-   },[stateFavorite])
+   const handleClick = () => {
+      
+      setStateFavorite((p) => {
+         //Validate state
+         if(!p){addCharacterFavorite(character)}
+         else{removeCharacterFavorite(id)}
+         
+         //return state to
+         return !p
+      })
+   };
 
    return (
-      <div className={`${styles.boxCardItem} ${variant === "banner"? styles.bannerCard : null}`}>
+      <div className={`${styles.boxCardItem} ${styles.bannerCard}`}>
          <NavLink className={styles.NavLinkStyles} to={`/characters/${id}`}>
             <h1 className={styles.titleNameCard}>{name}</h1>
             <img className={styles.imgCardCharacter} src={imageResource} alt={`Image ${name}`}/>
@@ -69,20 +73,20 @@ function Card({ id,name,species,gender,image,variant, addCharacterFavorite, remo
             </div>
          </NavLink>
          {
-            variant !== "banner"?
+            variant !== "banner" &&
                <div className={`${styles.iconFavoriteToggle} ${stateFavorite && styles.active}`}>
                   <FontAwesomeIcon onClick={handleClick} icon={faHeart} />
-               </div> : null
+               </div>
          }
       </div>
    );
 }
 
 //Redux
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
    return {
-      addCharacterFavorite: character => {
-         dispatch(addCharacterFavorite(character))
+      addCharacterFavorite: id => {
+         dispatch(addCharacterFavorite(id))
       },
       removeCharacterFavorite: id => {
          dispatch(removeCharacterFavorite(id))
