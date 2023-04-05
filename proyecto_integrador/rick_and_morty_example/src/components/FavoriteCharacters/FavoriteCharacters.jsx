@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import imageTitle from '../../resources/favorites_title_background.png';
-import { BaseURLApi } from "../../VariablesENV";
 import Cards from "../Cards/Cards";
+
+import {Navigate} from 'react-router-dom';
+
+import { hashSession } from '../../VariablesENV.js';
 
 const TitleSection = styled.div`
     position: relative;
@@ -25,10 +27,14 @@ const TitleSection = styled.div`
 `;
 
 const FavoriteCharacters = () => {
+    const session = sessionStorage.getItem(hashSession) ?? null;
+    
     const data = useSelector(state => state.list_favorite);
-
     return (
         <div style={{marginBottom:"100px"}}>
+            {
+                !session && <Navigate replace to='/login' />
+            }
             <TitleSection className="box-title-page">
                 <h1>Tus Favoritos</h1>
                 <div className="backroung_title"></div>

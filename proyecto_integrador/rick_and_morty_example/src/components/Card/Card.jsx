@@ -60,7 +60,7 @@ function Card(character) {
    };
 
    return (
-      <div className={`${styles.boxCardItem} ${styles.bannerCard}`}>
+      <div className={`${styles.boxCardItem}`}>
          <NavLink className={styles.NavLinkStyles} to={`/characters/${id}`}>
             <h1 className={styles.titleNameCard}>{name}</h1>
             <img className={styles.imgCardCharacter} src={imageResource} alt={`Image ${name}`}/>

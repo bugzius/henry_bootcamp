@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+## Al Final Estarán la Credenciales de Ingreso!!!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Rick and Morty - Proyecto Integrador
 
-## Available Scripts
+Esta app se creó con el propósito de aprender y tener una vista más amplia de lo aprendido en el transcurrir del Bootcamp SoyHenry hasta al módulo 2, el cual Llega con conocimientos hasta _**React**_ y _**React Redux**_.
 
-In the project directory, you can run:
+En este proyecto se hace uso de Las tecnologías bases de la web (_CSS_, _HTML_, _Javascript_) con diferentes Implementaciones, con Librerías principalmente.
 
-### `npm start`
+El proyecto actual cuenta con varias secciones en donde se refleja el Uso de _React_ con la creación de componentes con Estado y sus ciclos de Vida, la Implementación de componentes condicionales, el uso de Hooks para el desarrollo de la Funcionalidad. _Redux_ con la lista de Elementos agregados a Favoritos, este nos permite manejar el estado por medio de los _reducers_ y _actions types_.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Para generar componentes reutilizables, me he basado en diferencias los tipos de Componentes, esto con el fin de hacerlos reutilizables sin realizar _**HardCode**_ (Con esta, perdería la escalabilidad y legibilidad nuestro código), Esto lo vemos muy reflejado en los _**Cards**_, los botones, además de la sección de que muestra las cartas, aplicando a la misma una adaptación con validación por medio de _**props**_.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Como se trata de un proyecto para la aplicabilidad de Conocimientos, he realizado el uso de **4** de las formas base de Aplicabilidad de estilos,
+siendo este proyecto una combinación de estilos en linea, estilos globales, Modularización de Estilos (_**CSS Modules**_) y la conocida Librería `Styled Components`.
 
-### `npm test`
+Este proyecto se basa en la renderización de Componentes basados en Rutas (o lo que serían paths), esto se logra gracias al manejo de `react-router-dom`, este nos ayuda a generar una interfáz rápida y manteniendo el Principio de lo que es una _**SPA**_ _Single Page Aplication_. Algo de lo que lograrán darse cuenta, es que cuenta con un Formulario Controlado por medio de Eventos, este nos permite validar si las credenciales son correctas para luego permitir el Ingreso a todos los apartados de la _**App**_, Pues gracias a dicha librería logramos que sean validadas las rutas y así mismo se encuentren "protegidas" hasta que el usuario no Ingrese credenciales validas, Dichas credenciales se almancenan en el _Session Storage_ de nuestro navegador.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Las rutas son:
+```
+/ [home]
+/login
+/about
+/characters
+/characters/:id
+/favorites
+```
+`Si deseas Ingesar un hacer uso de la App, Ingresa los siguientes credenciales y podrás acceder, user:bugzius | password:SOYhenry12`.
