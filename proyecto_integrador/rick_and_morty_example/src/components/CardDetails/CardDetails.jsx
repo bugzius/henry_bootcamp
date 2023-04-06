@@ -1,6 +1,7 @@
+import styled from 'styled-components';
+
 import React, {useEffect, useState} from 'react';
 import { useNavigate, useParams, Navigate } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { ButtonNavigate } from '../ButtonNavigate/ButtonNavigate.jsx';
 import { CardDetail } from './CardDetail/CardDetail.jsx';
@@ -9,14 +10,11 @@ import Loading from '../Loading/Loading.jsx';
 
 import { BaseURLApi, hashSession } from '../../VariablesENV.js';
 
-const ContainerCardDetails = styled.div`
-    padding: 10px;
-`;
-
 export function CardDetails(){
     const session = sessionStorage.getItem(hashSession) ?? null
-    //
+    
     const navigate = useNavigate();
+
     //Obteniene los valores actuales de la ruta
     const {id} = useParams();
     
@@ -28,8 +26,8 @@ export function CardDetails(){
             .then(res => res.json())
             .then(data => {
                 if(!data.error){
-                    setCharacter((s) => {
-                        if(s.name)setLoading(false);
+                    setCharacter(() => {
+                        if(data.name)setLoading(false);
                         return data;
                     });
                     return;
@@ -67,3 +65,7 @@ export function CardDetails(){
         </ContainerCardDetails>
     )
 }
+
+const ContainerCardDetails = styled.div`
+    padding: 10px;
+`;
