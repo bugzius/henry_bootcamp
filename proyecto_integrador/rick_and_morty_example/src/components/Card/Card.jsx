@@ -14,27 +14,6 @@ import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
-const Button = styled.button`
-   border: none;
-   outline: none;
-   padding: 5px 10px;
-   border-radius: 5px;
-   cursor: pointer;
-
-   box-shadow: 0 1px 5px rgba(0,0,0,0.3);
-   font-weight: bold;
-   padding: 5px 18px;
-   font-size: 1.2rem;
-   transition: all .4s ease;
-
-   &:hover{
-      background: rgb(229, 93, 8);
-      color: white;
-      box-shadow: 0 1px 15px rgba(255, 0, 0, 0.4);
-      transform: scale(1.04);
-   }
-`;
-
 function Card(character) {
    const { id,name,species,gender,image,variant, addCharacterFavorite, removeCharacterFavorite, favorite } = character;
 
@@ -81,6 +60,27 @@ function Card(character) {
       </div>
    );
 }
+
+const Button = styled.button`
+   border: none;
+   outline: none;
+   padding: 5px 10px;
+   border-radius: 5px;
+   cursor: pointer;
+
+   box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+   font-weight: bold;
+   padding: 5px 18px;
+   font-size: 1.2rem;
+   transition: all .4s ease;
+
+   &:hover{
+      background: rgb(229, 93, 8);
+      color: white;
+      box-shadow: 0 1px 15px rgba(255, 0, 0, 0.4);
+      transform: scale(1.04);
+   }
+`;
 
 //Redux
 const mapDispatchToProps = dispatch => {

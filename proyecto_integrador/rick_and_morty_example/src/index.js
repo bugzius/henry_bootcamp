@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import * as ReactRouter from 'react-router-dom';
 
-import './index.css'
+import './index.css';
 
 import {App} from './App.jsx'
 import { NavMenu } from './components/navComponent/navList';
@@ -18,7 +18,7 @@ root.render(
     <Provider store={store}>
       <ReactRouter.BrowserRouter>
         <NavMenu />
-          <App />
+        <App />
         <Footer />
       </ReactRouter.BrowserRouter>
     </Provider>

@@ -10,6 +10,7 @@ import { hashSession } from '../../VariablesENV.js';
 export function Characters() {
     const [characters, setCharacters] = useState([]);
     const [CurrentPage, setNumberPage] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     const session = sessionStorage.getItem(hashSession) ?? null;
 
@@ -18,7 +19,10 @@ export function Characters() {
             .then(res => res.json())
             .then(({ results }) => {
                 window.scroll({ top: 0 });
-                setCharacters(results);
+                setCharacters(() => {
+                    setLoading(false);
+                    return results;
+                });
             });
     }, [CurrentPage])
 
@@ -27,7 +31,7 @@ export function Characters() {
             {
                 !session && <Navigate replace to='/login' />
             }
-            <Cards panel={true} characters={characters} />
+            <Cards loading={loading} panel={true} characters={characters} />
             <PaginatorCards setNumberPage={setNumberPage} />
         </>
     )

@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import styles from'./Cards.module.css';
 import Card from '../Card/Card.jsx';
 import { SearchBar } from '../SearchBar/SearchBar.jsx';
+import Loading from '../Loading/Loading';
+
 import store from '../../redux/store';
 import styled from 'styled-components';
 
-export default function Cards({ characters, panel, textEmpty}) {
+export default function Cards({ characters, panel, textEmpty, loading}) {
    const [tempChars, setTempChars] = useState(characters);
    
    const handleSearch = (event,persons) => {
@@ -56,6 +58,9 @@ export default function Cards({ characters, panel, textEmpty}) {
          }
          <div className={styles.listCharacters}>
             {
+               loading ?
+                  <Loading />
+               :
                tempChars && tempChars.length ? 
                tempChars.map( ({id,name,species,gender,image, favorite}) => {
                   const key = Math.floor(Math.random() * Date.now());
