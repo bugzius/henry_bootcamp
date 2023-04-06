@@ -15,6 +15,7 @@ export function Characters() {
     const session = sessionStorage.getItem(hashSession) ?? null;
 
     useEffect(() => {
+        setLoading(true);
         fetch(`${BaseURLApi}?page=${CurrentPage}`)
             .then(res => res.json())
             .then(({ results }) => {

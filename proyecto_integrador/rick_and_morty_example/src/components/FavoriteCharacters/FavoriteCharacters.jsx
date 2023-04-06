@@ -28,8 +28,8 @@ const TitleSection = styled.div`
 
 const FavoriteCharacters = () => {
     const session = sessionStorage.getItem(hashSession) ?? null;
-    
     const data = useSelector(state => state.list_favorite);
+
     return (
         <div style={{marginBottom:"100px"}}>
             {
@@ -39,7 +39,7 @@ const FavoriteCharacters = () => {
                 <h1>Tus Favoritos</h1>
                 <div className="backroung_title"></div>
             </TitleSection>
-            <Cards textEmpty={'No tienes favoritos, Agrega uno'} panel={false} characters={data}/>
+            <Cards loading={false} textEmpty={'No tienes favoritos, Agrega uno'} panel={false} characters={data}/>
         </div>
     );
 }

@@ -45,7 +45,8 @@ export default function Cards({ characters, panel, textEmpty, loading}) {
             favorite: listIds.includes(item.id)
          }
       }));
-   },[characters])
+   },[characters]);
+   
    return (
       <>
          {
