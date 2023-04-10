@@ -2,20 +2,67 @@ const fs = require("fs");
 const utils = require("../utils/request");
 const process = require("process");
 
-function pwd() {}
+function pwd(print) {
+    print(process.cwd())
+}
 
-function date() {}
+function date(print) {
+    print(Date())
+}
 
-function echo() {}
+function echo(print, args) {
+    print(args)
+}
 
-function ls() {}
+function ls(print) {
+    fs.readdir('.', (err,files) => {
+        if(err){
+            throw new Error(JSON.stringify(err))
+        }
 
-function cat() {}
+        print(files.join(' '))
+    })
+}
 
-function head() {}
+function cat(print, args) {
+    fs.readFile(args, 'utf-8', (err, data) => {
+        if(err){
+            throw new Error(JSON.stringify(err))
+        }
 
-function tail() {}
+        print(data);
+    })
+}
 
-function curl() {}
+function head(print, args) {
+    fs.readFile(args, 'utf-8', (err, data) => {
+        if(err){
+            throw new Error(JSON.stringify(err))
+        }
+        console.log(data);
+        print(data);
+    })
+}
 
-module.exports = {};
+function tail(print) {}
+
+function curl(print, args) {
+    console.log(args);
+    utils.request(args, (err, res) => {
+        if(err){
+            throw new Error(err)
+        }
+        print(res);
+    })
+}
+
+module.exports = {
+    pwd,
+    date,
+    echo,
+    ls,
+    cat,
+    head,
+    tail,
+    curl
+};
