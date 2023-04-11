@@ -18,7 +18,7 @@ function getData(data){
    const commandExist = commands[cmd];
 
    if(commandExist){
-      commandExist(print, args)
+      commandExist(print, args.join(" "))
       return;
    }
 

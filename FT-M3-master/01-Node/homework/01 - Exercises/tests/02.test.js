@@ -107,7 +107,7 @@ describe('02 | Ejercicios', () => {
 
   it('CURL - Debe realizar una request a una URL', (done) => {
     const requestSpy = jest.spyOn(utils, 'request');
-    commands.curl(index.print, 'http://sarasa.com');
+    commands.curl(index.print, 'https://sarasa.com');
     const requestCallback = requestSpy.mock.calls[0][1];
     requestCallback(null, `<html>
     <head>
