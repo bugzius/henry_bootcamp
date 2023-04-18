@@ -24,7 +24,7 @@ function Card(character) {
       fetch(image)
          .then(res => res.blob())
          .then(imageBlob => setImageResource(URL.createObjectURL(imageBlob)));
-   },[]);
+   },[image]);
 
    const handleClick = () => {
       
@@ -42,7 +42,7 @@ function Card(character) {
       <div className={`${styles.boxCardItem}`}>
          <NavLink className={styles.NavLinkStyles} to={`/characters/${id}`}>
             <h1 className={styles.titleNameCard}>{name}</h1>
-            <img className={styles.imgCardCharacter} src={imageResource} alt={`Image ${name}`}/>
+            <img className={styles.imgCardCharacter} src={imageResource} alt={`character ${name}`}/>
             <div className={styles.overCard}>
                <div>
                   <p>{species}</p>

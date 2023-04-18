@@ -35,7 +35,7 @@ export function CardDetails(){
                 setLoading(false);
             })
             .catch(console.log);
-    },[])
+    },[id])
 
     return (
         <ContainerCardDetails>

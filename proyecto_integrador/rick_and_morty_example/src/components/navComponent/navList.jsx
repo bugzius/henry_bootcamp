@@ -103,7 +103,7 @@ export function NavMenu(){
     return (
         <ContainerMenu>
             <ImageNavLink to="/" className={activeClassNavLink}>
-                <img src={Logo} alt="icon-image-rick&morty" />
+                <img src={Logo} alt="icon-rick&morty" />
             </ImageNavLink>
             <ContainerListNav>
                 <ul>

@@ -7,6 +7,7 @@ import './index.css';
 import {App} from './App.jsx'
 import { NavMenu } from './components/navComponent/navList';
 import { Footer } from './components/Footer/Footer.jsx';
+
 import { Provider } from 'react-redux';
 
 import store from './redux/store';

@@ -2,7 +2,6 @@ import imageBanner from'../../resources/wallpaper_background_r_m.webp'
 import { colorGreenBase } from '../../VariablesENV.js';
 
 import styled from "styled-components";
-import { Navigate } from 'react-router-dom';
 
 const ContainerBannerDiv = styled.div`
     @media (max-width: 516px) {

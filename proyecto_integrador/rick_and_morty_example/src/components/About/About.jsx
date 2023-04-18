@@ -72,7 +72,7 @@ export function About(){
             <ButtonNavigate func={navigate} valFunc={-1} text={"Regresar"} />
             <h1 className="titleAbout">Conoce Nuestro Proyecto</h1>
             <ContainerCardAbout>
-                <img className="imageAbout" src={AboutImage} alt="Image About" />
+                <img className="imageAbout" src={AboutImage} alt="About" />
                 <article className="informationAbout">
                     <section className="informationAboutTitle">
                         <h2>Rick And Morty APP</h2>
