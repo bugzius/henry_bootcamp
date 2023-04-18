@@ -19,15 +19,32 @@ args.forEach(function (arg) {
 
 function problemA() {
   // callback version
-  exerciseUtils.readFile("poem-two/stanza-01.txt", function (err, stanza) {
+  /* exerciseUtils.readFile("poem-two/stanza-01.txt", function (err, stanza) {
     exerciseUtils.blue(stanza);
   });
   exerciseUtils.readFile("poem-two/stanza-02.txt", function (err, stanza) {
     exerciseUtils.blue(stanza);
-  });
+  }); */
 
   // promise version
   // Tu código acá:
+  /**
+   * Este método retorna una Promesa, Si alguna de las promesas en el
+   * arreglo es rechazada, la promesa del método irá directamente a el
+   * reject de la promesa.
+   */
+  const promises = [
+    exerciseUtils.promisifiedReadFile("poem-two/stanza-01.txt"),
+    exerciseUtils.promisifiedReadFile("poem-two/stanza-02.txt")
+  ];
+  const resultsPromises = Promise.all([...promises]);
+  resultsPromises.then(([stanza1, stanza2]) => {
+    console.log([stanza1, stanza2], 'severo ÑERO');
+    exerciseUtils.blue(stanza1);
+    exerciseUtils.blue(stanza2);
+  })
+  .catch(reason => exerciseUtils.magenta(reason));
+
 }
 
 function problemB() {
