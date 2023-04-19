@@ -8,15 +8,20 @@ import FilterCharacters from '../FilterCharacters/FilterCharacters';
 import Cards from "../Cards/Cards";
 
 import imageTitle from '../../resources/favorites_title_background.png';
+import { useEffect } from "react";
 
 function FavoritePage() {
     const session = sessionStorage.getItem(hashSession) ?? null;
     const data = useSelector(state => state.list_favorite);
 
-    const [filterData, setFilterData] = useState([]);
+    const [filterCharacters, setFilterCharacters] = useState(data);
+
+    useEffect(() => {
+        setFilterCharacters(data);
+    },[data]);
 
     return (
-        <>
+        <div style={{marginBottom: '100px'}}>
             {
                 !session && <Navigate replace to='/login' />
             }
@@ -24,9 +29,9 @@ function FavoritePage() {
                 <h1>Tus Favoritos</h1>
                 <div className="backroung_title"></div>
             </TitleSection>
-            <FilterCharacters changeFilter={ {} } />
-            <Cards loading={false} textEmpty={'No tienes favoritos, Agrega uno'} panel={false} characters={data}/>
-        </>
+            <FilterCharacters changeFilterDataFunction={setFilterCharacters} dataCharacters={data} />
+            <Cards loading={false} textEmpty={'No tienes favoritos, Agrega uno'} panel={false} characters={filterCharacters}/>
+        </div>
     );
 };
 

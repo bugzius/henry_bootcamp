@@ -1,3 +1,7 @@
+//Redux
+import { connect } from 'react-redux';
+import { addCharacterFavorite, removeCharacterFavorite } from '../../redux/creatorTypeActions';
+
 //Component
 import { useEffect, useState } from 'react';
 
@@ -9,7 +13,7 @@ import Loading from '../Loading/Loading';
 import store from '../../redux/store';
 import styled from 'styled-components';
 
-export default function Cards({ characters, panel, textEmpty, loading}) {
+function Cards({ characters, panel, textEmpty, loading, addCharacterFavorite, removeCharacterFavorite}) {
    const [tempChars, setTempChars] = useState(characters);
    
    const handleSearch = (event,persons) => {
@@ -69,7 +73,11 @@ export default function Cards({ characters, panel, textEmpty, loading}) {
                      name,species,gender,
                      image, key, id, favorite
                   }
-                  return <Card {...options}/>
+                  return <Card 
+                              addCharacterFavorite={addCharacterFavorite}
+                              removeCharacterFavorite={removeCharacterFavorite}
+                              {...options}
+                        />
                }) :
                <EmptyElement>
                   {textEmpty ?? 'No hay elementos para mostrar'}
@@ -86,4 +94,17 @@ const EmptyElement = styled.h1`
    padding: 10px;
    border-radius: 10px;
    box-shadow: 0 1px 5px #00000031;
-`
+`;
+
+const mapDispatchToProps = dispatch => {
+   return {
+      addCharacterFavorite: id => {
+         dispatch(addCharacterFavorite(id))
+      },
+      removeCharacterFavorite: id => {
+         dispatch(removeCharacterFavorite(id))
+      }
+   }
+}
+
+export default connect(null, mapDispatchToProps)(Cards);
