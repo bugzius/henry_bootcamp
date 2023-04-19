@@ -22,6 +22,13 @@ export function CardDetails(){
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
+        // * Here get one Character to API
+        
+        //! With BFF (Backend For Frontend)
+        /* fetch(`http://localhost:3001/character/${id}`)
+            .then(res => res.json())
+            .then(console.log); */
+        
         fetch(`${BaseURLApi}/${id}`)
             .then(res => res.json())
             .then(data => {
