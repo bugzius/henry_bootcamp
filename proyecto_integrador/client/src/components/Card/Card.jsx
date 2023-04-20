@@ -20,7 +20,7 @@ function Card(character) {
       fetch(image)
          .then(res => res.blob())
          .then(imageBlob => setImageResource(URL.createObjectURL(imageBlob)));
-   },[]);
+   },[image]);
 
    const handleClick = () => {
       

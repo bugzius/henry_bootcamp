@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { colorGreenBase } from "../../../VariablesENV";
+import { useNavigate } from "react-router-dom";
 
 const ButtonPaginatorStyled = styled.button`
     background: white;
@@ -27,8 +28,12 @@ const ButtonPaginatorStyled = styled.button`
 `;
 
 export function ButtonPaginator({numberPage,funcActionClick}){
+    const navigate = useNavigate();
     return (
-        <ButtonPaginatorStyled onClick={() => funcActionClick(numberPage)}>
+        <ButtonPaginatorStyled onClick={() => {
+            navigate(`?currentPage=${numberPage}`);
+            funcActionClick(numberPage);
+        }}>
             <span>{numberPage}</span>
         </ButtonPaginatorStyled>
     )

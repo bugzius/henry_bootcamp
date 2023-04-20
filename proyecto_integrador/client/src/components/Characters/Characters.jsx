@@ -6,10 +6,12 @@ import { BaseURLApi } from '../../VariablesENV.js';
 
 import { PaginatorCards } from '../Paginator/Paginator.jsx';
 import { hashSession } from '../../VariablesENV.js';
+import useParam from '../../utils/getAParams.js';
 
 export function Characters() {
+    const [CurrentPage, setNumberPage] = useParam('currentPage');
+
     const [characters, setCharacters] = useState([]);
-    const [CurrentPage, setNumberPage] = useState(1);
     const [loading, setLoading] = useState(true);
 
     const session = sessionStorage.getItem(hashSession) ?? null;
