@@ -93,19 +93,20 @@ _**Aspectos a tener en cuenta**_:
 _**Path opcional - Según necesidad**_:
     Según nuestra necesidad de Invocación del _**Middleware**_ podemos realizar la asingnación del argumento de (`path`); Si no asignamos `path`, el _**Middleware**_ se va a ejecutar en todas las `request`, si queremos que el _**Middleware**_ se ejecute en una ruta especifica debemos de asignarla como argumento.
 
-    ```javascript
-        //Sin path - Se ejecuta en todas las request
-        app.use((req,res, next) => {
-            console.log('En todas las rutas');
-            next();
-        });
 
-        //Con Path especifico - Solo se va a ejecutar en dicha ruta
-        app.use('/home',(req,res, next) => {
-            console.log('En la ruta de Home ');
-            next();
-        });
-    ```
+```javascript
+    //Sin path - Se ejecuta en todas las request
+    app.use((req,res, next) => {
+        console.log('En todas las rutas');
+        next();
+    });
+
+    //Con Path especifico - Solo se va a ejecutar en dicha ruta
+    app.use('/home',(req,res, next) => {
+        console.log('En la ruta de Home ');
+        next();
+    });
+```
 
 ## Router
 
@@ -144,52 +145,51 @@ module.exports = usersRouter
 
 - _**Rutas Relativas**_: Cuando queremos identificar por medio de rutas un elemento dentro de una lista, Ej: queremos que el servidor nos entregue un usuario por medio del _**id**_ del mismo. Haríamos uso de las rutas relativas. Estas funcionan de la Siguiente manera:
 
-Ej:
-```javascript
-app.get('/users/:id', controlador)// --> obtenemos el valor con el parámetro de nombre id para los valores que se encuentren luego de la ruta users
-```
+    Ej:
+    ```javascript
+    app.get('/users/:id', controlador)// --> obtenemos el valor con el parámetro de nombre id para los valores que se encuentren luego de la ruta users
+    ```
+    De esta forma podemos crear rutas relativas que invoquen un _**controlador**_ sobre la misma sin espeficar uno a uno las rutas.
 
-De esta forma podemos crear rutas relativas que invoquen un _**controlador**_ sobre la misma sin espeficar uno a uno las rutas.
+    Los valores de estas rutas relativas podemos obtenerlos por medio de los parámetros de la `request` que nos envía por medio de el callback nuestro framework.
+    Estos parámetros podemos acceder a ellos desde el `callback`
+    ```javascript
+        app.get('/users/:id', (req,res) => {
+                const { id } = req.params; //Es un Objeto que contiene los parámetros.
+                res.send('En la ruta /users/' + id);
+            });
+    ```
 
-Los valores de estas rutas relativas podemos obtenerlos por medio de los parámetros de la `request` que nos envía por medio de el callback nuestro framework.
-Estos parámetros podemos acceder a ellos desde el `callback`;
-
-```javascript
-app.get('/users/:id', (req,res) => {
-    const { id } = req.params; //Es un Objeto que contiene los parámetros.
-    res.send('En la ruta /users/' + id);
-});
-```
 
 - _**Query params**_: Los queryParams no son nada más que valores que podemos indexar en una URL. No pertenece o cambia el comportamiento de la ruta relativa, Es decir; nuestro servidor no los tiene en cuenta al momento de validar una ruta, pero sí que podemos acceder a ellos.
 
-```javascript
-app.get('/users/:id', (req,res) => {
-    const { id } = req.query; //Es un Objeto que contiene los parámetros.
-    res.send('En la ruta /users/' + id);
-});
-```
+    ```javascript
+        app.get('/users', (req,res) => {
+            const { id } = req.query; //Es un Objeto que contiene los argumentos.
+            res.send('En la ruta /users?id=' + id);
+        });
+    ```
 
 - _**Método post - Body en Headers**_: desde nuestro servidor con `Express` podemos acceder a valores como el body que se encuentran al pie de un header de petición. 
 
-Este body se envía en formato _**JSON**_.
+    Este body se envía en formato _**JSON**_.
 
-Accedemos desde el objeto de la `request` dentro del callback y dentro de la propiedad `req.body`, de esta manera no tenemos la información en ninguna parte de nuestra url y ocultando la información recibida.
+    Accedemos desde el objeto de la `request` dentro del callback y dentro de la propiedad `req.body`, de esta manera no tenemos la información en ninguna parte de nuestra url y ocultando la información recibida.
 
-Node en conjunto con el framework no puede interpretar código de _**JSON**_, entonces podemos hacer uso de un Middleware para parsear todos los valores recibidos en formato _**JSON**_ para así mismo poderlos hacer accesibles desde nuestro servidor de express.
+    Node en conjunto con el framework no puede interpretar código de _**JSON**_, entonces podemos hacer uso de un Middleware para parsear todos los valores recibidos en formato _**JSON**_ para así mismo poderlos hacer accesibles desde nuestro servidor de express.
 
-```javascript
-const express = require('express');
+    ```javascript
+    const express = require('express');
 
-const app = express();
+    const app = express();
 
-//Creamos el middleware
-app.use(express.json());//Parsea todas las entradas recibidas en formato JSON
+    //Creamos el middleware
+    app.use(express.json());//Parsea todas las entradas recibidas en formato JSON
 
-//Definimos la ruta
-app.post('/users', (req,res) => {
-    const dataJson = req.body;//Tomamos el body de la request
+    //Definimos la ruta
+    app.post('/users', (req,res) => {
+        const dataJson = req.body;//Tomamos el body de la request
 
-    res.json(dataJson);//Respondemos con Formato JSON 
-});
-```
+        res.json(dataJson);//Respondemos con Formato JSON 
+    });
+    ```
