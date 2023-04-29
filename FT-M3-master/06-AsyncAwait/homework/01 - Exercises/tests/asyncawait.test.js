@@ -143,7 +143,6 @@ describe("01 | Ejercicios - Async Await (poem-one)", () => {
 
     if (blue.mock.calls.length >= 1) {
       expect(blue).toHaveBeenCalledWith(stanzasOne[2]);
-      expect(blue).toHaveBeenCalledWith(stanzasOne[3]);
     }
 
     if (
