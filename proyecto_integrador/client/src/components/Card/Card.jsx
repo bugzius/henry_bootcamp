@@ -1,7 +1,3 @@
-//Redux
-import { connect } from 'react-redux';
-import { addCharacterFavorite, removeCharacterFavorite } from '../../redux/creatorTypeActions'
-
 //Component
 import styles from './Card.module.css';
 import styled from 'styled-components';
@@ -31,8 +27,10 @@ function Card(character) {
       setStateFavorite((p) => {
          //Validate state
          if(!p){addCharacterFavorite(character)}
-         else{removeCharacterFavorite(id)}
-         
+         else{
+            removeCharacterFavorite(id)
+         }
+
          //return state to
          return !p
       })
@@ -82,16 +80,4 @@ const Button = styled.button`
    }
 `;
 
-//Redux
-const mapDispatchToProps = dispatch => {
-   return {
-      addCharacterFavorite: id => {
-         dispatch(addCharacterFavorite(id))
-      },
-      removeCharacterFavorite: id => {
-         dispatch(removeCharacterFavorite(id))
-      }
-   }
-}
-
-export default connect(null, mapDispatchToProps)(Card)
+export default Card;

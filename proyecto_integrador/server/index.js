@@ -8,10 +8,8 @@ const port = process.env.PORT || 4002;
 const server = express();
 
 server.use(express.json());
-server.use(cors);
+server.use(cors());
 server.use('/', indexRouter);
-
-console.log();
 
 server.listen(port, 'localhost', () => {
     console.log('Servidor corriendo en el puerto:' + port);

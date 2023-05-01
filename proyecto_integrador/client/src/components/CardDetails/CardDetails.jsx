@@ -8,7 +8,7 @@ import { CardDetail } from './CardDetail/CardDetail.jsx';
 import { NotFound } from '../NotFound/NotFound.jsx';
 import Loading from '../Loading/Loading.jsx';
 
-import { BaseURLApi, hashSession } from '../../VariablesENV.js';
+import { BaseURLApi, BaseURLBFF, hashSession } from '../../VariablesENV.js';
 
 export function CardDetails(){
     const session = sessionStorage.getItem(hashSession) ?? null
@@ -25,13 +25,22 @@ export function CardDetails(){
         // * Here get one Character to API
         
         //! With BFF (Backend For Frontend)
-        fetch(`http://localhost:4001/character/${id}`)
+        fetch(`${BaseURLBFF}/${id}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-            });
+                //! If the answer was an error
+                if(!data.error){
+                    setCharacter(() => {
+                        if(data.name)setLoading(false);
+                        return data;
+                    });
+                    return;
+                }
+                setLoading(false);
+            })
+            .catch(console.log);
         
-        fetch(`${BaseURLApi}/${id}`)
+        /* fetch(`${BaseURLApi}/${id}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -45,7 +54,7 @@ export function CardDetails(){
                 }
                 setLoading(false);
             })
-            .catch(console.log);
+            .catch(console.log); */
     },[id])
 
     return (

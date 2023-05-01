@@ -2,32 +2,44 @@ import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import Cards from '../Cards/Cards.jsx';
 
-import { BaseURLApi } from '../../VariablesENV.js';
+import { BaseURLApi, BaseURLBFF } from '../../VariablesENV.js';
 
 import { PaginatorCards } from '../Paginator/Paginator.jsx';
 import { hashSession } from '../../VariablesENV.js';
+import useParam from '../../utils/getAParams.js';
 
 export function Characters() {
+    const [CurrentPage, setNumberPage] = useParam('currentPage');
+
     const [characters, setCharacters] = useState([]);
-    const [CurrentPage, setNumberPage] = useState(1);
     const [loading, setLoading] = useState(true);
 
     const session = sessionStorage.getItem(hashSession) ?? null;
 
     useEffect(() => {
         setLoading(true);
+        
         //? With BFF (Backend For Frontend)
-
-        fetch(`${BaseURLApi}?page=${CurrentPage}`)
+        fetch(`${BaseURLBFF}?page=${CurrentPage}`)
             .then(res => res.json())
-            .then(({ results }) => {
+            .then(({results}) => {
                 window.scroll({ top: 0 });
                 setCharacters(() => {
                     setLoading(false);
                     return results;
                 });
             });
-    }, [CurrentPage])
+        //! Whithout BFF, Direct Connection
+        /* fetch(`${BaseURLAPI}?page=${CurrentPage}`)
+            .then(res => res.json())
+            .then(({results}) => {
+                window.scroll({ top: 0 });
+                setCharacters(() => {
+                    setLoading(false);
+                    return results;
+                });
+            }); */
+    }, [CurrentPage]);
 
     return (
         <>
