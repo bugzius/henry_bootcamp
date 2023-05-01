@@ -10,5 +10,27 @@ describe('PARTE 02', () => {
             'Wht r y,  cmmnst?'
          );
       });
+      it('Debe retornar un error si el argumento no es un string', () => {
+         expect(() => {
+            antiTrollsSecurity(199);
+         }).toThrow('El argumento debe ser un string');
+         
+         expect(() => {
+            antiTrollsSecurity(null);
+         }).toThrow('El argumento debe ser un string');
+         
+         expect(() => {
+            antiTrollsSecurity(undefined);
+         }).toThrow('El argumento debe ser un string');
+         
+         expect(() => {
+            antiTrollsSecurity(function(){});
+         }).toThrow('El argumento debe ser un string')
+      });
+
+      it('Debe retornar un strin vacío', () => {
+         expect(antiTrollsSecurity('')).toBe('');
+      })
+
    });
 });
