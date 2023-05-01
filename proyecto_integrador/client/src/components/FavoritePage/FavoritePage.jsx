@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import styled from "styled-components";
@@ -12,8 +11,6 @@ import imageTitle from '../../resources/favorites_title_background.png';
 function FavoritePage() {
     const session = sessionStorage.getItem(hashSession) ?? null;
     const data = useSelector(state => state.list_favorite);
-
-    const [filterData, setFilterData] = useState([]);
 
     return (
         <>

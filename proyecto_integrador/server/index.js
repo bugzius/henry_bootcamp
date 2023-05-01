@@ -1,49 +1,20 @@
-const http = require('http');
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const indexRouter = require('./src/router/indexRouter');
 
-//* Import Routes
-const {getACharacter, ROUTE_NAME_GET_CHARACTER} = require('./src/controllers/getACharacter');
+const port = process.env.PORT || 4002;
 
-//Creación del Servidor
-http.createServer((req,res) => {
-    //Control de Acceso
-    res.setHeader('Access-Control-Allow-Origin','*');
+const server = express();
 
-    //* End Points
-    const elementsUrl = req.url.slice(1).split("/");
-    
-    //! Routes with only one parameter
-    if(elementsUrl.length === 1){
-        console.log(elementsUrl[0]);
-    };
+server.use(express.json());
+server.use(cors);
+server.use('/', indexRouter);
 
-    //! Route Dinamics with two parameters
-    if(elementsUrl.length === 2){
-        //* Creation Routes
-        const routes = ({
-            //TODO: Write Here all Routes with two params
-            [`${ROUTE_NAME_GET_CHARACTER}`]: () => getACharacter(res, elementsUrl[1])
-        });
-        
-        //* Validate Route in request
-        const staticRoute = routes[elementsUrl.join('/')];
-        
-        //? if not exist a static route with two paths, This route will be a Dinamic Route
-        if(!staticRoute){
-            routes[elementsUrl[0]]()
-            return;
-        }
+console.log();
 
-        //? If exist a static route in the Object
-        staticRoute();
-    };
+server.listen(port, 'localhost', () => {
+    console.log('Servidor corriendo en el puerto:' + port);
+});
 
-    //* Home or Base Response
-    res.writeHead(200,{'Content-Type': 'application/json'});
-    res.end(JSON.stringify({nombre:'EA'}));
-
-}).listen(3001,'localhost');
-
-/**
- * Routes
- * 
- */
+module.exports = server;

@@ -16,6 +16,8 @@ export function Characters() {
 
     useEffect(() => {
         setLoading(true);
+        //? With BFF (Backend For Frontend)
+
         fetch(`${BaseURLApi}?page=${CurrentPage}`)
             .then(res => res.json())
             .then(({ results }) => {

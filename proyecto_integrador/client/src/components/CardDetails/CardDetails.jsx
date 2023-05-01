@@ -25,13 +25,17 @@ export function CardDetails(){
         // * Here get one Character to API
         
         //! With BFF (Backend For Frontend)
-        /* fetch(`http://localhost:3001/character/${id}`)
+        fetch(`http://localhost:4001/character/${id}`)
             .then(res => res.json())
-            .then(console.log); */
+            .then(data => {
+                console.log(data);
+            });
         
         fetch(`${BaseURLApi}/${id}`)
             .then(res => res.json())
             .then(data => {
+                console.log(data);
+                //! If the answer was an error
                 if(!data.error){
                     setCharacter(() => {
                         if(data.name)setLoading(false);
@@ -63,7 +67,7 @@ export function CardDetails(){
                                 id={character.id}
                                 created={character.created}
                                 nameOrigin={character.origin.name}
-                                nameLocation={character.origin.name}
+                                nameLocation={character.location.name}
                             />
                         :
                         <NotFound text='El Elemento que intenta Abrir no Existe'/>
