@@ -1,7 +1,7 @@
 const http = require('http');
 
 //* Import Routes
-const {getACharacter, ROUTE_NAME_GET_CHARACTER} = require('./controllers/getACharacter.js');
+const {getACharacter, ROUTE_NAME_GET_CHARACTER} = require('./src/controllers/getACharacter');
 
 //Creación del Servidor
 http.createServer((req,res) => {
