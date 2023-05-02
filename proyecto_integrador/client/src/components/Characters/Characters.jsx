@@ -17,8 +17,10 @@ export function Characters() {
     const session = sessionStorage.getItem(hashSession) ?? null;
 
     useEffect(() => {
+        const page = new URLSearchParams(window.location.search).get('currentPage');
+
         setLoading(true);
-        fetch(`${BaseURLApi}?page=${CurrentPage}`)
+        fetch(`${BaseURLApi}?page=${page}`)
             .then(res => res.json())
             .then(({ results }) => {
                 window.scroll({ top: 0 });
@@ -35,7 +37,7 @@ export function Characters() {
                 !session && <Navigate replace to='/login' />
             }
             <Cards loading={loading} panel={true} characters={characters} />
-            <PaginatorCards setNumberPage={setNumberPage} />
+            <PaginatorCards CurrentPage={CurrentPage} setNumberPage={setNumberPage} />
         </>
     )
 }

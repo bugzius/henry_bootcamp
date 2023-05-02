@@ -1,9 +1,10 @@
-import { ADD_CHARACTER_FAVORITE, REMOVE_CHARACTER_FAVORITE } from "./actions";
+import { ADD_CHARACTER_FAVORITE, ADD_NUMBERS_PAGES_PAGINATOR, REMOVE_CHARACTER_FAVORITE } from "./actions";
 //TOMAR DE EL LOCAL STORAGE
 const NAME_STORAGE_STATE_LIST_FAVORITE = 'H9SD5SDG022';
 
 const initialState = {
-    list_favorite: getStorageValue(NAME_STORAGE_STATE_LIST_FAVORITE) ?? []
+    list_favorite: getStorageValue(NAME_STORAGE_STATE_LIST_FAVORITE) ?? [],
+    numbers_pages_paginator: 0
 } 
 
 const rootReducer = (state = initialState, action) => {
@@ -21,6 +22,12 @@ const rootReducer = (state = initialState, action) => {
 
             setStorageValue(NAME_STORAGE_STATE_LIST_FAVORITE,list_favorite);
             return {...state,list_favorite};
+        },
+        [`${ADD_NUMBERS_PAGES_PAGINATOR}`]: () => {
+            return {
+                ...state,
+                numbers_pages_paginator: action.payload
+            }
         }
     })[action.type];
     return actionType ? actionType() : state;

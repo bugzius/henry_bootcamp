@@ -56,7 +56,7 @@ export function CardDetails(){
                                 id={character.id}
                                 created={character.created}
                                 nameOrigin={character.origin.name}
-                                nameLocation={character.origin.name}
+                                nameLocation={character.location.name}
                             />
                         :
                         <NotFound text='El Elemento que intenta Abrir no Existe'/>
