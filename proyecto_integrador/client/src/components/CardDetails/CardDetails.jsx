@@ -21,6 +21,7 @@ export function CardDetails(){
     const [character, setCharacter] = useState({});
     const [loading, setLoading] = useState(true);
     
+    
     useEffect(() => {
         fetch(`${BaseURLApi}/${id}`)
             .then(res => res.json())
@@ -57,6 +58,7 @@ export function CardDetails(){
                                 created={character.created}
                                 nameOrigin={character.origin.name}
                                 nameLocation={character.location.name}
+                                episodes={character.episode}
                             />
                         :
                         <NotFound text='El Elemento que intenta Abrir no Existe'/>

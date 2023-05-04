@@ -1,8 +1,9 @@
 import styled from "styled-components"
 import { colorBlueBase, colorGreenBase } from "../../../VariablesENV";
+import EpisodesCardDetails from "../EpisodesCardDetails/EpisodesCardDetails";
 
 const CardStyled =  styled.div`
-    margin: 10px auto 100px auto;
+    margin: 10px auto;
     width: 100%;
     max-width: 800px;
     background: #efefef;
@@ -87,25 +88,28 @@ const CardStyled =  styled.div`
     }
 `;
 
-export function CardDetail({name,gender,species,image,status,id,nameOrigin, nameLocation}){
+export function CardDetail({name,gender,species,image,status,id,nameOrigin, nameLocation, episodes}){
     const genderObj = {'Female':"♀",'Male': "♂️"}
     const unknownValue = val => val !== 'unknown' ? val : 'Desconocido';
     return (
-        <CardStyled>
-            <div className="top-side-card">
-                <img className="image-card-detail" src={image} alt={`image_${name}_${id}`} />
-                <div className="top-info-card">
-                    <p className="title-name">{name}</p>
-                    <div className="info">
-                        <p>{genderObj[gender]} {gender}</p>
-                        <p className={`status-character ${status}`}>{status}-{species}</p>
+        <>
+            <CardStyled>
+                <div className="top-side-card">
+                    <img className="image-card-detail" src={image} alt={`image_${name}_${id}`} />
+                    <div className="top-info-card">
+                        <p className="title-name">{name}</p>
+                        <div className="info">
+                            <p>{genderObj[gender]} {gender}</p>
+                            <p className={`status-character ${status}`}>{status}-{species}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="bottom-side-card">
-                <p><strong>Origen: </strong>{unknownValue(nameOrigin)}</p>
-                <p><strong>Ubicación:</strong> {unknownValue(nameLocation)}</p>
-            </div>
-        </CardStyled>      
+                <div className="bottom-side-card">
+                    <p><strong>Origen: </strong>{unknownValue(nameOrigin)}</p>
+                    <p><strong>Ubicación:</strong> {unknownValue(nameLocation)}</p>
+                </div>
+            </CardStyled>
+            < EpisodesCardDetails episodes={episodes}/>
+        </>
     )
 }
