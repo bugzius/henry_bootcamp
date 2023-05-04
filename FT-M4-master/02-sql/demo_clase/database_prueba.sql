@@ -1,0 +1,4 @@
+CREATE TABLE CHARACTER
+(
+    name
+)
