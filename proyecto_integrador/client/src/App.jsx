@@ -1,4 +1,8 @@
 import {Routes, Route} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { BaseURLApi } from './VariablesENV';
+import { addNumbersPagesPaginator } from './redux/creatorTypeActions';
 
 import { About } from './components/About/About';
 import Home from './components/Home/Home';
@@ -6,9 +10,7 @@ import { Characters } from './components/Characters/Characters.jsx';
 import { CardDetails } from './components/CardDetails/CardDetails';
 import { Login } from './components/Login/Login.jsx';
 import FavoritePage from './components/FavoritePage/FavoritePage';
-import { useDispatch } from 'react-redux';
-import { BaseURLApi } from './VariablesENV';
-import { addNumbersPagesPaginator } from './redux/creatorTypeActions';
+import EpisodeDetails from './components/EpisodeDetails/EpisodeDetails.jsx';
 
 export function App(){
     const dispatch = useDispatch();
@@ -29,6 +31,7 @@ export function App(){
             <Route path='/about' element={<About />} />
             <Route path='/login' element={<Login />} />
             <Route path='/favorites' element={<FavoritePage />} />
+            <Route path='/episode/:id_episode' element={<EpisodeDetails />}/>
         </Routes>
     )
 }

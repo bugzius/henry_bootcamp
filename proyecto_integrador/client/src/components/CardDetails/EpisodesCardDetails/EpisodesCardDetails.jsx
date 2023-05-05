@@ -12,7 +12,7 @@ function EpisodesCardDetails({episodes}) {
                         const id = url.split('/').at(-1);
                         return (
                             <EpisodeCard
-                                onClick={() => navigate(`episode/${id}`)}
+                                onClick={() => navigate(`/episode/${id}`)}
                                 key={i}
                                 valueColor={i * 10}
                             >
@@ -57,12 +57,14 @@ const EpisodeCard = styled.div`
     aspect-ratio: 1;
     width: 50px;
 
+    color: white;
+
     ${({valueColor}) => {
-        return css`background: hsl(${valueColor}, 100%, 45%);`;
+        return css`background: hsl(${valueColor}, 100%, 35%);`;
     }}
     font-weight: bold;
     border-radius: 50%;
-    border: 5px solid #dfdfdf;
+    border: 4px solid #dfdfdf;
     box-shadow: 0 1px 2px rgba(0,0,0,0.3),
             inset 0 1px 5px rgba(0,0,0,0.2);
     

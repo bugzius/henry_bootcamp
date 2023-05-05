@@ -1,6 +1,7 @@
 const colorGreenBase = "#bbff00";
 const colorBlueBase = 'rgb(36, 186, 255)';
 const BaseURLApi = 'https://rickandmortyapi.com/api/character';
+const BaseURLApiEpisode = 'https://rickandmortyapi.com/api/episode';
 
 const hashSession = 'l0a9ds8fa09df8';
 const username = 'bugzius';
@@ -10,6 +11,7 @@ export {
     colorGreenBase,
     colorBlueBase,
     BaseURLApi,
+    BaseURLApiEpisode,
     hashSession,
     username,
     password
