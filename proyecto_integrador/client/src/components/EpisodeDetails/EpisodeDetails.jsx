@@ -2,17 +2,24 @@ import styled from "styled-components";
 
 import { useState } from "react";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 import { BaseURLApi, BaseURLApiEpisode } from "../../VariablesENV";
 
 import { ButtonNavigate } from "../ButtonNavigate/ButtonNavigate";
 import ListIconsCharactersStyled from '../ListIconsCharacters/ListIconsCharacters';
 
+import { hashSession } from "../../VariablesENV.js";
+import Loading from "../Loading/Loading";
+import { NotFound } from "../NotFound/NotFound";
+
 
 function EpisodeDetails() {
+    const session = sessionStorage.getItem(hashSession) ?? null
+
     const {id_episode} = useParams();
     const navigate = useNavigate();
 
+    const [loading, setLoading] = useState(true);
     const [episode, setEpisode] = useState({});
     const [charactersEpisode, setCharactersEpisode] = useState([]);
 
@@ -20,42 +27,54 @@ function EpisodeDetails() {
         fetch(`${BaseURLApiEpisode}/${id_episode}`)
             .then(res => res.json())
             .then(data => {
-                
-                //* Add Episode
-                setEpisode(() => {
-                    //! Insert Loading
-                    return data;
-                });
+                if(!data.error){
+                    //* Add Episode
+                    setEpisode(() => {
+                        //! Reset Loading
+                        setLoading(false);
+                        return data;
+                    });
 
-                //* Generate Array for Characters Fetch
-                const characterArr = data.characters.map(ch => ch.split('/').at(-1)).toString();
-                return fetch(`${BaseURLApi}/${characterArr}`);
+                    //* Generate Array for Characters Fetch
+                    const characterArr = data.characters.map(ch => ch.split('/').at(-1)).toString();
+                    return fetch(`${BaseURLApi}/${characterArr}`);
+                };
             })
             .then(res => res.json())
             .then(characters => {
                 setCharactersEpisode(() => characters)
+            })
+            .catch(() => {
+                setLoading(false);
             });
     },[])
 
     return (
         <StyledEpisodeDetails>
+            {
+                !session && <Navigate replace to='/login' />
+            }
             <ButtonNavigate text={'Regresar'} func={() => navigate(-1)}/>
             {
-                episode.name &&
-                    <>
-                        <TagEpisode>
-                            Episode
-                            <span> #{episode.id}</span>
-                        </TagEpisode>
-                        <TitleEpisode>{episode.name}</TitleEpisode>
-                        <DateEpisode>Lanzado {episode.air_date}</DateEpisode>
-                        <SubTitleEpisode>Personajes en este Episodio</SubTitleEpisode>
-                        {
-                            charactersEpisode.length > 0 ?
-                                <ListIconsCharactersStyled characters={charactersEpisode}/>
-                            : null
-                        }
-                    </>
+                loading ?
+                    <Loading type={'full'}/>
+                :
+                    episode.name ?
+                        <>
+                            <TagEpisode>
+                                Episode
+                                <span> #{episode.id}</span>
+                            </TagEpisode>
+                            <TitleEpisode>{episode.name}</TitleEpisode>
+                            <DateEpisode>Lanzado {episode.air_date}</DateEpisode>
+                            <SubTitleEpisode>Personajes en este Episodio</SubTitleEpisode>
+                            {
+                                charactersEpisode.length > 0 ?
+                                    <ListIconsCharactersStyled characters={charactersEpisode}/>
+                                : null
+                            }
+                        </>
+                    : <NotFound text={'Episodio no Encontrado'} />
             }
         </StyledEpisodeDetails>
     );
