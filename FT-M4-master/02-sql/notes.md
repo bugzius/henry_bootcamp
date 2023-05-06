@@ -185,3 +185,69 @@ SELECT type, COUNT(id_student) FROM student GROUP BY type;
 ```
 
 La clausula anterior se traduce a --> Genera un resultado en donde se vean de forma agrupada los _tipos_ de estudiante y cuenta la cantidad de estudiantes que existen en cada grupo de _type_.
+
+## Sub Queries
+
+Estas clausulas nos permiten generar Consultas anidadas; una consulta dentro de otra consulta.
+
+Podemos hacer uso de esta funcionalidad ya sea como campo de una consulta o como valor para su validación dentro de un where
+
+Nuestra `SubQuerie` puede tomar los campos que vayamos a extraer de nuestra consulta Padre.
+
+- _**Como campo**_: Como campo podemos hacer 
+- **Como valor de consulta**: De esta forma haciendo uso de algunos operadores podemos hacer uso de Sub Consultas para traer los valores que necesitemos y de la forma que necesitemos.
+
+Supongamos que tenemos una entidad de Liga en donde cada liga va a contener atributos (nombre, cantidad, equipos, id_liga), En el atributo equipos tenemos una relación de muchos a uno (N:1) en donde muchos equipos pueden estar en una liga pero un equipo solo puede estar en una liga.
+
+Necesitamos consultar todas las ligas que su promedio de puntos es mayor a la liga del meta.
+
+Esta sería nuestra consulta:
+
+```sql
+SELECT name FROM liga WHERE (SELECT AVG(puntaje) FROM equipos WHERE liga='meta') < (SELECT AVG(puntaje) FROM equipos WHERE id_liga = id);
+```
+
+
+## Join Clausule
+
+Se usa para combinar datos de dos o más tablas.
+
+Este solicita un punto de enlace en el resultado de nuestra consulta.
+
+Ejemplo:
+```sql
+SELECT character.id_character, character.name, status.name, gender.gender_name FROM character JOIN status ON character.status = status.id JOIN gender ON character.gender = gender.id;
+```
+
+De esta forma vamos a obtener la relación de los ids contenidos en cada clave foranea y traemos los nombres en la consulta de cada registro de caracter.
+
+Se compone de una sección de campos los cuales podemos extraer con Sintaxis de Punto haciendo referencia a el nombre de la tabla. Además debemos de validar cómo se va a hacer referencia a un valor de dicha tabla con relación a la clave foranea de la misma.
+
+## Operador `AS`
+
+Este nos permite darle un nombre a un grupo de algo, Ya sea un valor de consulta o renombrar una tabla.
+
+```sql
+SELECT ch.id_ch, ch.name, st.name, gen.gender_name FROM character as ch JOIN status as st ON ch.status = st.id JOIN gender as gen ON ch.gender = gen.id;
+```
+
+Al renombrarla podemos simplicar la cantidad de carácteres de nuestra consulta.
+
+## INNER JOIN
+
+Nos permite obtener los valores que existan dentro de un grupo de registros que le indiquemos.
+
+```sql
+SELECT name, id_character FROM character WHERE location IN (SELECT id FROM locations WHERE name = 'New York');
+```
+
+Esta consulta lo que va a realizar es obtener en primera instancia los campos [name, id_character] pero los va a filtrar especificando que el registro debe de existir dentro ([IN --> clausula]) de los resultados de la subconsulta realizada, La cual va a traer todos los _id_ de los registros que cuenten con la condición de tener en su atributo _name_ el dato ['New York'].
+
+## Para investigar
+
+CREATE 
+INSERT INTO
+SELECT
+FROM
+SUM
+WHERE
