@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
 import { colorGreenBase } from "../../../VariablesENV";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-const ButtonPaginatorStyled = styled.button`
-    background: white;
+const ButtonPaginatorStyled = styled(NavLink)`
+    background: ${({value}) => (
+        isNaN(value) ?
+            '#ff6a6a'
+        : 'white'
+    )};
     box-shadow: 0 1px 5px #c7c7c7;
     color: inherit;
     
@@ -28,12 +32,15 @@ const ButtonPaginatorStyled = styled.button`
 `;
 
 export function ButtonPaginator({numberPage,funcActionClick}){
-    const navigate = useNavigate();
+    const fNumberPage = isNaN(numberPage) ? 1 : numberPage;
     return (
-        <ButtonPaginatorStyled onClick={() => {
-            navigate(`?currentPage=${numberPage}`);
-            funcActionClick(numberPage);
-        }}>
+        <ButtonPaginatorStyled
+            value={numberPage}
+            to={`?currentPage=${fNumberPage}`}
+            onClick={() => {
+                funcActionClick(numberPage);
+            }}
+        >
             <span>{numberPage}</span>
         </ButtonPaginatorStyled>
     )

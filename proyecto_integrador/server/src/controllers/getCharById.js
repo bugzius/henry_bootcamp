@@ -14,7 +14,8 @@ const getCharById = async (req, res) => {
             origin: data.origin,
             location: data.location,
             image: data.image,
-            created: data.created
+            created: data.created,
+            episode: data.episode
         };
         
         res.status(200).json(charFilteredData);

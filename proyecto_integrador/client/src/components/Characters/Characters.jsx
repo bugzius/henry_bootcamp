@@ -17,6 +17,8 @@ export function Characters() {
     const session = sessionStorage.getItem(hashSession) ?? null;
 
     useEffect(() => {
+        const page = new URLSearchParams(window.location.search).get('currentPage');
+
         setLoading(true);
         
         //? With BFF (Backend For Frontend)
@@ -47,7 +49,7 @@ export function Characters() {
                 !session && <Navigate replace to='/login' />
             }
             <Cards loading={loading} panel={true} characters={characters} />
-            <PaginatorCards setNumberPage={setNumberPage} />
+            <PaginatorCards CurrentPage={CurrentPage} setNumberPage={setNumberPage} />
         </>
     )
 }
