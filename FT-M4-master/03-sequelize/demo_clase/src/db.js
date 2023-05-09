@@ -7,6 +7,8 @@ const DefineOriginModel = require('./models/OriginModel');
 const DefineSpeciesModel = require('./models/SpeciesModel');
 const DefineStatusModel = require('./models/StatusModel');
 
+const DefineEpisodeModel = require('./models/Episode');
+
 //Crear la conexión con la base de Datos
 //! usuario de postgres
 //! password  
@@ -21,15 +23,31 @@ const database = new Sequelize(pathDataBase,{logging: false});
 //nombre de la tabla
     //String, mayuscula y en singular
 //Objetos con los campos de la tabla
+
+//* Character
 const GenderModel = DefineGenderModel(database);
 const OriginModel = DefineOriginModel(database);
 const SpeciesModel = DefineSpeciesModel(database);
 const StatusModel = DefineStatusModel(database);
-const CharacterModel = DefineCharacterModel(database,{
+
+DefineCharacterModel(database,{
     StatusModel,
     OriginModel,
     SpeciesModel,
     GenderModel
 });
 
-module.exports = database;
+//* Episode
+DefineEpisodeModel(database);
+
+//* Relation Character - Episode (N:N)
+//! Extrae los modelos de la base de datos
+const {Character, Episode } = database.models;
+
+Character.belongsToMany(Episode, {through: "character_episode"});
+Episode.belongsToMany(Character, {through: "character_episode"});
+
+module.exports = {
+    database,
+    ...database.models
+};

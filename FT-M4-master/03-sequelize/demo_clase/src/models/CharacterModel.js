@@ -11,6 +11,6 @@ module.exports = (database,{StatusModel, OriginModel, SpeciesModel, GenderModel}
         status:{type: DataTypes.INTEGER,references: {model: StatusModel,key:'id',}, allowNull: false},
         origin:{type: DataTypes.INTEGER,references:{model: OriginModel,key:'id'}, allowNull: false},
         species:{type: DataTypes.INTEGER,references:{model: SpeciesModel,key:'id'}, allowNull: false},
-        gender:{type: DataTypes.INTEGER,references:{model: GenderModel,key:'id'}, allowNull: false}
-    });
+        gender:{type: DataTypes.INTEGER,references:{model: GenderModel,key:'id'}, allowNull: false},
+    },{timestamps: false});
 };

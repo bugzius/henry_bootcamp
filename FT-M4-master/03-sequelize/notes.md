@@ -131,6 +131,49 @@ const User = database.define('User', {
         isUrl: true,
         allowNull: true
     },
-    password
+    password:{
+        type: DataTypes.STRING,
+        is: ["^[a-z]+$",'i'],
+        len:[4, 15],
+        notNull: false
+    },
+    username:{
+        type: DataType.STRING,
+        len:[4,14],
+        allowNull: false,
+        isAlphanumeric: true
+    }
 })
 ```
+
+Estas son validaciones y constrains que nos provee _**Sequelize**_.
+
+## Cómo generar relaciones entre Modelos en Sequelize.
+
+Para generar relaciones entre modelos con Sequelize primero debemos de conocer que hay que investigar bien la documentación. Vamos a conocer los tipos de relaciones que tendríamos
+
+> Tip: usar `database.models` para tomar todos los modelos definidos en la base de datos.
+
+- Relación de Varios a Varios (`belongsToMany`):  
+Esta es un tipo de relación que requiere una tabla intermedia para su funcionamiento, entonces debemos de tenerlo muy en cuenta, En este caso.
+
+Vamos a hacer uso de el siguiente método --> `Model.belongsToMany(model, options)`, Este nos solicita 2 argumentos iniciales base, Los cuales son el modelo al cual queremos apuntar la relación y las opciones de la relación.
+
+Veamos cómo:
+
+```javascript
+const { Plato, Ingrediente} = database.models; //Extramos lo modelos previamente definidos.
+
+/* Esta va a tener la relación de muchos a muchos, Ya que un plato puede contener muchos ingredientes y un ingrediente puede estar en muchos platos */
+
+Plato.belongsToMany(Ingrediente,{through:'plato_ingrediente'});
+Ingrediente.belongsToMany(Plato,{through:'plato_ingrediente'});
+```
+
+En sequelize esta es la forma en la que definimos las relaciones entre dos entidades, Aquí estamos definiendo por medio de el método que desde la entidad _Plato_ va a existir una cardenalidad de muchos a muchos (_N:N_) con la Entidad _Ingredientes_ y de forma inversa con la ejecución del método en la Entidad _Ingredientes_.
+
+En el segundo argumento hemos definido un objeto con la propiedad _through_; esta propiedad va a ser la que contenga el nombre de nuestra tabla auxiliar para la relación.
+
+Y esto sería lo base para definir nuestra relación, Pero ahora, _**¿Y la tabla auxiliar?**_.
+
+Pues **_Sequelize_** ahora la creará por nosotros con dichas relaciones y referencias de nuestros Modelos.
