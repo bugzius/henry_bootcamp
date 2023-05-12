@@ -79,6 +79,12 @@ await database.sync({force:true});
 Esta propiedad es importante, ya que al momento de desarrollar podemos usarla a nuestra favor. Esta propiedad nos permite que cada cambio estructural que realicemos sobre algún modelo de nuestra base de datos force la limpieza de toda nuestra base de datos y creación de todas las tablas.
 > En producción es imposible pensar que esta configuración esté, ya que borarría todos los registros realizados.
 
+```javascript
+/* index.js */
+await database.sync({alter:true});
+```
+Esta propiedad nos permite únicamente actualizar los pequeños cambios realizados sobre los modelos sin eliminar los registros existentes en las tablas.
+
 ## Modelos
 Es una representación en nuestra aplicación de una tabla de la base de datos.
 Esta representacion nos va a ser útil para tener definido cómo serán nuestras consultas a la base de datos según la definición de la tabla.
@@ -177,3 +183,24 @@ En el segundo argumento hemos definido un objeto con la propiedad _through_; est
 Y esto sería lo base para definir nuestra relación, Pero ahora, _**¿Y la tabla auxiliar?**_.
 
 Pues **_Sequelize_** ahora la creará por nosotros con dichas relaciones y referencias de nuestros Modelos.
+
+## Desarrollando la Integración
+
+Al realiza la creación de el servidor, sabemos que nuestro código va a ir escalando, y se extiende más cuando tenemos una integración con una base datos, Entonces es muy importante todos estos _features_ mantenerlos de forma modularizada.
+
+Antes de todo esto debemos de conocer cuál va a ser nuestro flujo de trabajo en este caso entre el servidor y nuestra base de datos.
+
+Al realizar la integración entre `Servidor -> Sequelize -> Postgresql` podemos llegar a identificar entre la creación de nuestro servidor, la conexion con nuestra **base de datos** _postgresql_ y el acceso a la información contenida en nuestra base de datos que es gestionada por _Sequelize_.
+
+Una buena forma de mantener todos controlado para identificar fácilmente cómo gestionar nuestro código es generando directorios de la siguiente forma.
+
+Directorios y archivos requeridos entre cada parte:  
+- Generar servidor: _Creación del Servidor (server.js)_, _Manejo de servidor(index.js)_, _Rutas de API(routes -> archivos de router)_
+- Base de Datos: _Conexión base de datos(db.js --> Funcionalidades y Conexión)_, _Definición de modelos(models -> Archivos para cada modelo)_.
+- Manejo de la base de datos: _Solicitudes a la base de datos por medio de los modelos(Controllers --> Archivos que consultan la base de datos)_.
+
+## Métodos de Gestión de Modelos
+
+Todos los Modelos son una Represación exacta de la tabla que existe en nuestra base de datos, También comparten sus tipos de acciones, Es decir; podemos consultar la tabla por medio de el modelo y este nos responderá.
+
+- `Model.findAll()`: Trae todos los elementos de una tabla, Es la representación de `SELECT * FROM "Model"`. Este método tambien acepta propiedades para filtrar, como sería: `Model.findAll({where:{id:5}})`, Aquí estaríamos filtrando por todos los que tengan el _id = 5_ que debería ser solo 1.
