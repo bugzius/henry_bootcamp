@@ -184,6 +184,28 @@ Y esto sería lo base para definir nuestra relación, Pero ahora, _**¿Y la tabl
 
 Pues **_Sequelize_** ahora la creará por nosotros con dichas relaciones y referencias de nuestros Modelos.
 
+- Relación de uno a uno (`hasOne()`):  Generar este tipo de relación es menos compleja que la anterior, ya que esta solo se relaciona de uno a uno, además de que no requiere tabla auxiliar.
+
+Se usa un método que es el que referencia hacia cuál modelo va a realizar su relación y el método desde el otro modelo que va a recibir la relación.
+
+```javascript
+const { User, Profile} = database.models;
+
+User.hasOne(profile);
+Profile.belongsTo(Plato);
+```
+
+Esta relación como ven es más sencilla de realizar en _**sequelize**_.
+
+- Relación de uno a muchos (`hasMany()`):  
+```javascript
+const { User, Repositorio } = database.models;
+
+User.hasMany(User);
+Repositorio.belongsTo(Repositorio);
+```
+
+
 ## Desarrollando la Integración
 
 Al realiza la creación de el servidor, sabemos que nuestro código va a ir escalando, y se extiende más cuando tenemos una integración con una base datos, Entonces es muy importante todos estos _features_ mantenerlos de forma modularizada.
@@ -204,3 +226,67 @@ Directorios y archivos requeridos entre cada parte:
 Todos los Modelos son una Represación exacta de la tabla que existe en nuestra base de datos, También comparten sus tipos de acciones, Es decir; podemos consultar la tabla por medio de el modelo y este nos responderá.
 
 - `Model.findAll()`: Trae todos los elementos de una tabla, Es la representación de `SELECT * FROM "Model"`. Este método tambien acepta propiedades para filtrar, como sería: `Model.findAll({where:{id:5}})`, Aquí estaríamos filtrando por todos los que tengan el _id = 5_ que debería ser solo 1.
+
+Este método también recibe parámetros que nos permite añadir, consultar y/o regir la consulta a la base de datos con ciertas condiciones, Como por ejemplo pueden ser propiedades para especificar una clausula _JOIN_ o una clausula _WHERE_.
+
+**WHERE**: Esta clausula nos permite filtrar validando los atributos de cada uno de los valores de la tabla.
+```javascript
+async function(){
+    return await Character.findAll({
+        where:{
+            status:'alive'
+        }
+    });
+};
+```
+
+De esta forma estamos indicando que queremos buscar en todos los registros de la tabla y recibir únicamente los que tienen en su propiedad "_status_" el valor "_alive_".
+
+**JOIN**: Esta clausula nos permite incluir en nuestra consulta una o varias columnas con valores los cuales deben de estar relacionados con nuestra entidad principal de consulta.
+
+```javascript
+async function(){
+    return await Character.findAll({
+        include:{//Incluir la tabla
+            model: Episode,//Eligir el modelo o entidad, relacionada de forma directa
+            attributes:['name'],//Si no colocamos esta propiedad, trerá todos los atributos, por el contrario podremos elegir los atributos que necesitamos extraer.
+            through:{//Esta es una propiedad para especificar si queremos traer en nuestra consulta las tablas auxiliares, como podría darse el caso en una relación de muchos a muchos
+                attributes:[]
+            }
+        }
+    });
+};
+```
+
+Aquí lo que estamos realizando es generar una consulta en la cual estamos uniendo los valores filtrados de una tabla manteniendo la referencia a los valores dentro de cada registro en la Entidad principal.
+
+- `add() Method`: Este método se agrega de forma automática a nuestras instancias cuando se da el caso de contener relaciones de muchos a muchos entre modelos, Es decir; si tenemos por ejemplo una relación de muchos a muchos entre el modelo _Usuarios_ y el modelo _Repositorios_, _**sequelize**_ nos agregará un método en cada instancia creada desde uno de los dos modelos de forma distinta, quedaría de _newUser.addRepositorios()_ y _newRepositorio.addUsuarios()_, Este recibirá un arreglo de valores en donde les agregará los Id correspondientes para generar la relación desde un mismo modelo.
+
+```javascript
+const { Usuario, Repositorio } = database.models;
+
+Usuario.belongsToMany(Repositorio,{through:'usuario_repositorio'});
+Repositorio.belongsToMany(Usuario,{through:'usuario_repositorio'});
+
+(async () => {
+    const newUsuario = await Usuario.create({...values});
+    newUsuario.addRepositorios([1,2,3]);
+    return newUsuario;
+})();
+```
+
+De esta forma ya hemos generado las relaciones que tendrá el usuario creado con los repositorios existentes.
+
+- `findByPk()`: Este método nos permite realizar una consulta para extraer de un modelo un registro por _**primaryKey**_.
+
+```javascript
+const { Character } = database.models;
+const id = 8;
+
+(async() => {
+    const characterFind = await Character.findByPk(id)
+    return characterFind;
+})();
+```
+
+## Eliminar Registros

@@ -2,11 +2,6 @@ const { Sequelize } = require('sequelize');
 const { USER_DB,PASSWORD,DB_NAME,HOST,PORT} = process.env;
 
 const DefineCharacterModel = require('./models/CharacterModel');
-const DefineGenderModel = require('./models/GenderModel');
-const DefineOriginModel = require('./models/OriginModel');
-const DefineSpeciesModel = require('./models/SpeciesModel');
-const DefineStatusModel = require('./models/StatusModel');
-
 const DefineEpisodeModel = require('./models/Episode');
 
 //Crear la conexión con la base de Datos
@@ -25,17 +20,7 @@ const database = new Sequelize(pathDataBase,{logging: false});
 //Objetos con los campos de la tabla
 
 //* Character
-const GenderModel = DefineGenderModel(database);
-const OriginModel = DefineOriginModel(database);
-const SpeciesModel = DefineSpeciesModel(database);
-const StatusModel = DefineStatusModel(database);
-
-DefineCharacterModel(database,{
-    StatusModel,
-    OriginModel,
-    SpeciesModel,
-    GenderModel
-});
+DefineCharacterModel(database);
 
 //* Episode
 DefineEpisodeModel(database);

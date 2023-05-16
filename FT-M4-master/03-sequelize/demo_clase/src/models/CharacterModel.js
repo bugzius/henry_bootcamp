@@ -1,16 +1,32 @@
 const { DataTypes } = require('sequelize');
 
-module.exports = (database,{StatusModel, OriginModel, SpeciesModel, GenderModel}) => {
+module.exports = (database) => {
     return database.define('Character', {
         id:{
             type: DataTypes.INTEGER,//TIpo de dato entero
             autoIncrement: true, //AutoIncrementable
             primaryKey:true, //PrimaryKey
         },
-        name:{type: DataTypes.STRING(40),unique:true},
-        status:{type: DataTypes.INTEGER,references: {model: StatusModel,key:'id',}, allowNull: false},
-        origin:{type: DataTypes.INTEGER,references:{model: OriginModel,key:'id'}, allowNull: false},
-        species:{type: DataTypes.INTEGER,references:{model: SpeciesModel,key:'id'}, allowNull: false},
-        gender:{type: DataTypes.INTEGER,references:{model: GenderModel,key:'id'}, allowNull: false},
+        name:{
+            type: DataTypes.STRING(40),
+            unique:true,
+            allowNull: true
+        },
+        status:{
+            type: DataTypes.STRING(20),
+            allowNull:false
+        },
+        origin:{
+            type: DataTypes.STRING(30),
+            allowNull:false
+        },
+        species:{
+            type: DataTypes.STRING(20),
+            allowNull:false
+        },
+        gender:{
+            type: DataTypes.STRING(10),
+            allowNull:false
+        },
     },{timestamps: false});
 };
