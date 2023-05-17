@@ -277,7 +277,7 @@ Repositorio.belongsToMany(Usuario,{through:'usuario_repositorio'});
 
 De esta forma ya hemos generado las relaciones que tendrá el usuario creado con los repositorios existentes.
 
-- `findByPk()`: Este método nos permite realizar una consulta para extraer de un modelo un registro por _**primaryKey**_.
+- `findByPk()`: Este método nos permite realizar una consulta para extraer de un modelo un registro con la propiedad de _**primaryKey**_.
 
 ```javascript
 const { Character } = database.models;
@@ -290,3 +290,335 @@ const id = 8;
 ```
 
 ## Eliminar Registros
+
+Para realizar el proceso de eliminación de Registros en algún modelo de nuestra base de datos podemos realizarlo de dos formas diferentes que llevan a el mismo propósito y resultado.
+
+- 1ra: Tomar la referencia del elemento y eliminarlo:
+
+```javascript
+const { Character } = require('./db.js');//Extraemos el modelo
+async function(id){
+    const element = await Character.findByPk(id);//Obtenemos el elemento a eliminar por medio de primaryKey
+    const deletedElement = await element.destroy();
+    return deletedElement;
+};
+```
+
+- 2da: Eliminar un elemento por condición, es decir; vamos a eliminar todos los elementos que tenga la propiedad de _primaryKey_ de nuestra tabla / modelo.
+
+```javascript
+const { Character } = require('./db.js');//Extraemos el modelo
+async function(idParam){
+    const deletedElement = await Character.destroy({
+        where:{
+            id:idParam
+        }
+    });
+    return deletedElement;
+};
+```
+
+En el ejemplo anterior tomamos todo el modelo y vamos a buscar el elemento que en su propiedad _id_ contenga el valor pasado por parámetro.
+Sería muy similar a una clausula de la forma `DELETE FROM "Character" WHERE id=idParam;`.
+
+Las dos formas son válidas pero la segunda forma nos simplifica los pasos.
+
+## Generar creación de datos masivos
+
+Con _Sequelize_ podemos realizar sobre nuestra base de datos la creación de Instancias y/o valores masivos en nuestra base de datos, El método que nos provee _sequelize_ es `Model.bulkCreate()`, Este va a solicitar un arreglo y/o lista de valores con los atributos correspondientes sobre cada uno de los registros.
+
+```javascript
+const { Character } = require('../db');
+\
+const createBulkCharacter = async ({characters}) => {
+    const createdCharacters = await Character.bulkCreate(characters);
+    return createdCharacters;
+};
+
+module.exports = createBulkCharacter;
+```
+
+
+## Features Extras
+Para generar un contexto; cabe aclarar que las `queries` en general pueden ser de 4 tipos, ya sean _(CREATERS:CREAR, DELETERS:ELIMINAR, UPDATERS:ACTUALIZAR, FINDERS:BUSCAR)_ de esta forma podemos conocer que _sequelize_ se comunica con nuestra base de datos por medio de este tipo de consultas.
+
+### CREATORS
+- Alternativa a `Model.create()`:  Esta forma también es muy útil en casos específicos en donde necesitamos realizar algún proceso con previo a la instancia creada, La forma es la siguiente:
+
+```javascript
+const { Character } = require('../db');
+
+const createCharacter = async ({character}) => {
+    //Primero generamos la instancia y/o registro del Modelo
+    const createdCharacter = await Character.build(character);
+
+    //Segundo paso, lo guardamos en la base de datos.
+    createdCharacter.save();
+
+    return createdCharacter;
+};
+
+module.exports = createBulkCharacter;
+```
+
+### FINDERS
+En este caso vemos métodos de forma semántica para buscar registros de nuestra base de datos.
+
+- `findOne()`:  En este caso podemos traer un valor pero según los valores de algunas de sus propiedades y no solo hacer referencia a él por medio de su primaryKey, por esto es útil.
+
+```javascript
+const { Character } = require('../db');
+
+const findCharacter = async ({name}) => {
+    const find = await Character.findOne({
+        where:{
+            name
+        }
+    });
+    // is an Object with find element
+    return find;
+};
+
+module.exports = findCharacter;
+```
+
+De esta forma estamos solicitando que nos busque un registro cuyo nombre ingresa por parámetro en su propiedad _name_ que es de valor único.
+
+- `findAll()`:  Este método nos trae todos los valores que necesitemos. Por defecto trae todos los valores de la tabla, pero a esta consulta podemos añadir también otras clásulas como el equivalente a el `WHERE` y el `JOIN`.
+
+```javascript
+const { Character, Episode } = require('../db');
+
+const findAllCharacters = async () => {
+    const findCharacters = await Character.findAll({
+        where:{
+            status:'alive'
+        },
+        include:{
+            model: Episode,
+            attributes:['name']
+        }
+    });
+    return findCharacters;
+};
+
+module.exports = findAllCharacters;
+```
+Para definir lo que hemos solicitado a la base de datos con sequelize debemos identificar el uso de las clásulas, en el caso de el _where_ aplicamos las propiedades por las que queremos filtrar, y además a la columna le vamos a agregar todos los Episodios que se encuentren relacionados a cada registro de dicha tabla (_se requiere una relación de cardenalidad_), de esta manera hacemos uso de la cláusula `JOIN` con la propiedad _`include`_ dentro de la _**querie**_.
+
+- `findByPk()`:  Esta forma nos permite que por medio de un modelo podamos extraer un registro que se encuentre referenciado por una clave primaria.
+
+
+```javascript
+const { Character } = require('../db');
+
+const findByPkCharacter = async (id) => {
+    const findCharacter = await Character.findByPk(id);
+    return findCharacter;
+};
+
+module.exports = findByPkCharacter;
+```
+
+### UPDATERS
+
+Son métodos que nos permiten actualizar los registros existentes en nuestra base de datos.
+
+- `update()`:  Este método nos permite actualizar los valores que especifiquemos por medio de propiedades de filtrado.
+
+```javascript
+const { Character } = require('../db');
+
+const updateCharacterStatus = async ({statusWhere, statusNew}) => {
+    const updatedCharacters = await Character.update({status: statusNew}, {
+        where:{
+            status: statusWhere
+        }
+    });
+    return updatedCharacters;
+};
+
+module.exports = updateCharacterStatus;
+```
+
+En este caso estamos actualizando todos los registros que cuenten con cierto status por un nuevo valor.
+De la misma forma podemos realizar la búsqueda de un valor por una propiedad con clave primaria y luego actualizar los valores que necesitamos en dicho registro.
+
+### DELETERS
+
+Estos métodos nos permiten eliminar ya sea un registro, varios registros o todos los registros de una tabla.
+
+- Eliminar por referencia en instancia: En esta forma lo que hacemos es obtener el un registro y sobre su valor retornado realizar la ejecución del método destroy.
+
+```javascript
+const { Character } = require('../db');
+
+const deleteACharacter = async ({id}) => {
+    const find = await Character.findByPk(id);
+    find.destroy(); //Eliminamos el registro luego de tomarlo
+    
+    return find;
+};
+
+module.exports = deleteACharacter;
+```
+
+- Eliminar un grupo selecto de Registros:  Este nos permite eliminar un cantidad filtrada de registros.
+
+```javascript
+const { Character } = require('../db');
+
+const deleteCharactersStatus = async ({statusDeleted}) => {
+    const deleted = await Character.destroy({
+        where:{
+            status: statusDeleted
+        }
+    });
+
+    //Elimina todos los registros que en su atributo status cuenten con el valor _statusDeleted_
+    
+    return deleted;
+};
+
+module.exports = deleteCharactersStatus;
+```
+
+- Limpiar todo la Tabla `Model.truncate()`:  Esta forma elimina todos los registros de nuestra tabla.
+
+```javascript
+const { Character } = require('../db');
+
+const deleteAllCharacters = async () => {
+    const deleted = await Character.truncate();
+    //Elimina todos los registros de la tabla
+    return deleted;
+};
+
+module.exports = deleteAllCharacters;
+```
+
+## Operadores
+
+Se tratan de operadores que nos van a permitir ser más exactos a la hora de filtrar los registros.
+
+```javascript
+const { Op } = require('sequelize');
+const { Character } = require('../db');
+
+const filterData = async () => {
+    const finds = await Character.findAll({
+        where:{
+            [Op.and]: [{status:'alive'}, {origin:'villavicencio'}],
+            [Op.or]:[{status:'alive'},{status:'unknown'}],
+            cash:{
+                [Op.between]:[1000, 5000],
+                [Op.gt]:2000,
+                [Op.lt]:5000,
+                [Op.notBetween]
+            },
+            status:{
+                [Op.or]:['alive','dead'],//OR
+                [Op.is]:'alive',//EXACT VALUE ===
+                [Op.in]:['alive','dead']
+            },
+            gender:{
+                [Op.eq]:'male',
+                [Op.ne]:'female',
+            },
+            name:{
+                [Op.like]: '%juan',// BUSCA SI CONTIENE '%juan'
+                [Op.notLike]:'%otro',// VALIDA QUE NO TENGA UNA COINCIDENCIA CON
+                [Op.iLike]: '%juan',//BUSCA SI CONTIENE '%juan' sin tener en cuenta el caseSensitive,
+                [Op.starsWith]:'eso',//Que comience con
+                [Op.endsWith]:'ro'//Que termine con
+            }
+        }
+    })
+}
+```
+
+## Getters
+
+Estas son funciones que nos permiten generar un valor de campo virtual (un campo que NO se va a almacenar en la base de datos, este será accesible únicamente desde el modelo) para calcular en base a otros valores que sí existen en nuestra base de datos. Se realiza principalmente porque dichos cálculos a medida que nuestros valores iniciales van cambiando también el resultado del cálculo/proceso va a ser diferente.
+
+
+```javascript
+const { DataTypes,Sequelize } = require('sequelize');
+
+module.exports = function(database){
+    return database.define('User',{
+        id:{
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey:true
+        },
+        name:{
+            type: DataTypes.STRING(30),
+            allowNull: false
+        },
+        birthday:{
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        yearsOld:{
+            type: Sequelize.VIRTUAL,
+            get(){
+                return new Date().getFullYear() - new Date(this.birthday).getFullYear();
+            }
+        }
+    })
+}
+```
+
+
+## SETTERS
+
+Nos permite transformar un valor obtenido para un Atributo del módelo para así almacenarlo en un campo de la base de datos ya transformado, es decir; transforma el valor antes de guardarlo en la base de datos.
+
+
+```javascript
+const { DataTypes,Sequelize } = require('sequelize');
+
+module.exports = function(database){
+    return database.define('User',{
+        id:{...},
+        name:{...},
+        birthday:{
+            type: DataTypes.STRING,
+            set(value){
+                const date = new Date(value).toUTCString();
+                this.setDataValue('birthday',date);
+            }
+        },
+        yearsOld:{...}
+    })
+}
+```
+
+por medio de el método `set()` podemos acceder a el valor que está recibiendo el modelo a la hora de crearse sobre el atributo que queremos transformar, al igual al contener ya el valor final de la transformación vamos a tener que hacer uso de el método por clase accediendo desde `this.setDataValue('birthday', finalValue)`. De esta forma enviamos el valor que se debe allí almacenar como campo para nuestra base de datos.
+
+## Hooks
+
+Son funciones que le pertenecen a cada modelo de forma independiente que se van a ejecutar según un punto en el tiempo de nuestro proceso de `QUERIE` con nuestros modelos de sequelize.
+
+```javascript
+const { DataTypes,Sequelize } = require('sequelize');
+
+module.exports = function(database){
+    return database.define('User',{
+        id:{...},
+        name:{...},
+        birthday:{...},
+        yearsOld:{...}
+    },{
+        hooks:{
+            beforeCreate:function(user,options){
+                console.log('Esto ha sido creado');
+            },
+            afterCreate:function(user,options){
+                console.log('Empieza la creación');
+            }
+        }
+    })
+}
+```

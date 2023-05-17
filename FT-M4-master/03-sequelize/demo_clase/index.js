@@ -9,6 +9,8 @@ const { createEpisode } = require('./src/controllers/createEpisode.js');
 const findAllCharacters = require('./src/controllers/findAllCharacters.js');
 const createCharacter = require('./src/controllers/createCharacter.js');
 const findCharacterById = require('./src/controllers/findCharacterById.js');
+const deleteCharacter = require('./src/controllers/deleteCharacter.js');
+const createBulkCharacter = require('./src/controllers/createBulkCharacter.js');
 
 server.use(morgan('dev'));
 server.use(express.json());
@@ -43,6 +45,16 @@ server.get('/character/:id', async (req,res) => {
     };
 });
 
+server.delete('/character/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deletedCharacter = await deleteCharacter(id);
+        res.status(200).json({deletedCharacter});
+    } catch ({message}) {
+        res.status(400).json({error:message});
+    };
+});
+
 server.post('/character', async (req,res) => {
     try {
         const {name,gender,status, origin, species, episodes} = req.body;
@@ -53,6 +65,15 @@ server.post('/character', async (req,res) => {
     };
 });
 
+server.post('/character/bulk', async (req, res) => {
+    try{
+        const { characters } = req.body;
+        const charactersAdd = await createBulkCharacter({characters});
+        res.status(200).json(charactersAdd);
+    }catch({message}){
+        res.status(400).json({error:message});
+    };
+});
 server.get('/episode', async (req,res) => {
     try {
         const data = await findAllEpisode();
@@ -79,7 +100,7 @@ database.sync({alter:true})
         //! Levantamos el servidor
         server.listen(3002, 'localhost', () => {
             console.log('Servidor corriendo...');
-            console.log("Estámo' redi'");
+            console.log("Estámo' redi' 3002");
         });
     });
 
