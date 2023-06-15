@@ -71,4 +71,12 @@ Tipos de ambientes de desarrollo.
 - Staging: Es un deploy el cual permite comprobar funcionamiento antes de ir a producción.
 - Production: Es la versión del código que ya está publicada para uso de usuarios.
 
-> 1:17 workshop
+# Ventaja principal del CI(Continious Integration) o del CD (Cotinious Delivery)
+
+Una de las ventajas que podemos tener con este tipo de Flujo de trabajo nos permite siempre tener feedback sobre todos los cambios que se realicen en nuestro repositorio.
+
+# Continious deployment
+
+Igual que el Cotinious Delivery pero el Action de Deployment se realiza directamente hacia producción, esto requiere demasiada disciplina y monitorización constante.
+
+Existen varias herramientas para el control de estos tipos de flujos de trabajo, tales como Jenkins, Github Actions, GitLab, Travis CI, entre otros.
